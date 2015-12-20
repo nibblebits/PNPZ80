@@ -12,7 +12,8 @@ class DLL_EXPORT PNPZ80Simulator
         void processOpcode();
         void init();
         uint16_t getHL();
-        uint8_t getBC();
+        uint16_t getBC();
+        uint16_t getDE();
         uint8_t getMainRegister(uint8_t id);
     protected:
     private:
@@ -20,8 +21,13 @@ class DLL_EXPORT PNPZ80Simulator
         uint8_t getLeastSignificantRegister(uint8_t in);
 
         char* ram;
+
+        // The regs pointer will point to either the main registers or the alternative registers
+        uint8_t* regs;
         // CPU Registers
         uint8_t m_regs[8];
+        uint8_t a_regs[8];
+
         uint16_t PC;
         uint16_t SP;
         uint16_t IX;

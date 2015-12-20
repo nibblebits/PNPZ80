@@ -4,6 +4,7 @@
 PNPZ80Simulator::PNPZ80Simulator(char* ram)
 {
     this->ram = ram;
+    this->regs = this->m_regs;
     this->init();
 }
 
@@ -18,6 +19,7 @@ void PNPZ80Simulator::init()
     for (int i = 0; i < 8; i++)
     {
         this->m_regs[i] = 0;
+        this->a_regs[i] = 0;
     }
 
     this->PC = 0;
@@ -28,15 +30,21 @@ void PNPZ80Simulator::init()
 }
 uint16_t PNPZ80Simulator::getHL()
 {
-    return (((uint16_t)this->m_regs[H_REG] << 8) | this->m_regs[L_REG]);
+    return (((uint16_t)this->regs[H_REG] << 8) | this->regs[L_REG]);
 }
-uint8_t PNPZ80Simulator::getBC()
+uint16_t PNPZ80Simulator::getBC()
 {
-    return (((uint16_t) this->m_regs[B_REG] << 8) | this->m_regs[C_REG]);
+    return (((uint16_t) this->regs[B_REG] << 8) | this->regs[C_REG]);
 }
+
+uint16_t PNPZ80Simulator::getDE()
+{
+    return (((uint16_t) this->regs[D_REG] << 8) | this->regs[E_REG]);
+}
+
 uint8_t PNPZ80Simulator::getMainRegister(uint8_t id)
 {
-    return this->m_regs[id];
+    return this->regs[id];
 }
 
 uint8_t PNPZ80Simulator::getMostSignificantRegister(uint8_t in)
@@ -57,8 +65,10 @@ void PNPZ80Simulator::processOpcode()
     uint8_t b345 = (opcode & 0b00111000) >> 3;
     uint8_t d;
     uint8_t n;
+    uint8_t n2;
     uint8_t reg;
     uint8_t operand;
+    uint16_t nn;
 
     if (opcode == 0) // NOP
     {
@@ -66,15 +76,15 @@ void PNPZ80Simulator::processOpcode()
     }
     else if(b67 == 0b01 && b345 != 0b110 && b012 != 0b110) // LD r,r'
     {
-        this->m_regs[b345] = this->m_regs[b012];
+        this->regs[b345] = this->regs[b012];
     }
     else if(b67 == 0b00 && b345 != 0b110 && b012 == 0b110) // LD r,n
     {
-        this->m_regs[b345] = this->ram[++PC];
+        this->regs[b345] = this->ram[++PC];
     }
     else if(b67 == 0b01 && b345 != 0b110 && b012 == 0b110) // LD r,(HL)
     {
-        this->m_regs[b345] = this->ram[this->getHL()];
+        this->regs[b345] = this->ram[this->getHL()];
     }
     else if(opcode == 0b11011101)
     {
@@ -89,18 +99,18 @@ void PNPZ80Simulator::processOpcode()
         else if (reg == 0b110) // LD (IX+d), r
         {
             reg = this->getLeastSignificantRegister(operand);
-            this->ram[IX+d] = this->m_regs[reg];
+            this->ram[IX+d] = this->regs[reg];
         }
         else // LD r,(IX+d)
         {
-            this->m_regs[reg] = this->ram[IX+d];
+            this->regs[reg] = this->ram[IX+d];
         }
     }
     else if(opcode == 0b11111111) // LD r,(IY+d)
     {
         reg = this->getMostSignificantRegister(this->ram[++PC]);
         d = this->ram[++PC];
-        this->m_regs[reg] = this->ram[IY+d];
+        this->regs[reg] = this->ram[IY+d];
     }
     else if(opcode == 0b11111101)
     {
@@ -114,7 +124,7 @@ void PNPZ80Simulator::processOpcode()
         else // LD (IY+d),r
         {
             reg = this->getLeastSignificantRegister(operand);
-            this->ram[IY+d] = this->m_regs[reg];
+            this->ram[IY+d] = this->regs[reg];
         }
     }
     else if(opcode == 0b00110110) // LD(HL),n
@@ -124,15 +134,43 @@ void PNPZ80Simulator::processOpcode()
     }
     else if(b67 == 0b01 && b345 == 0b110 && b012 != 0b110) // LD (HL), r
     {
-        this->ram[this->getHL()] = this->m_regs[b012];
+        this->ram[this->getHL()] = this->regs[b012];
     }
-    else if(opcode == 0b00001010) // LD A, (BC)
+    else if(opcode == 0b00001010) // LD A,(BC)
     {
-        this->m_regs[A_REG] = this->ram[this->getBC()];
+        this->regs[A_REG] = this->ram[this->getBC()];
+    }
+    else if(opcode == 0b00011010) // LD A,(DE)
+    {
+        this->regs[A_REG] = this->ram[this->getDE()];
+    }
+    else if(opcode == 0b00111010) // LD A,(nn)
+    {
+        n = this->ram[++PC];
+        n2 = this->ram[++PC];
+        // Little endian
+        nn = (n2 << 8) | n;
+        this->regs[A_REG] = this->ram[nn];
+    }
+    else if(opcode == 0b00000010) // LD (BC),A
+    {
+        this->ram[this->getBC()] = this->regs[A_REG];
+    }
+    else if(opcode == 0b00010010) // LD (DE),A
+    {
+        this->ram[this->getDE()] = this->regs[A_REG];
+    }
+    else if(opcode == 0b00110010) // LD (nn),A
+    {
+        n = this->ram[++PC];
+        n2 = this->ram[++PC];
+        // Little endian
+        nn = (n2 << 8) | n;
+        this->ram[nn] = this->regs[A_REG];
     }
     else
     {
-        std::cout << "Bad Opcode: 0x" << std::hex << opcode << std::endl;
+        std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
     }
     PC++;
 }

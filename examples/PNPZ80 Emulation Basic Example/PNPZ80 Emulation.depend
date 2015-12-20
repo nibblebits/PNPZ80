@@ -30,3 +30,34 @@
 	"PNPZ80Instance.h"
 	<string>
 
+1450587735 source:h:\c++\pnpz80\examples\pnpz80 emulation basic example\main.cpp
+	<iostream>
+	<PNPZ80.h>
+	"PNPZ80Audio.h"
+
+1450589779 h:\c++\pnpz80\pnpz80\pnpz80.h
+	<windows.h>
+	<stdint.h>
+
+1450377882 h:\c++\pnpz80\examples\pnpz80 emulation basic example\include\pnpz80audio.h
+	<PNPZ80Hardware.h>
+
+1450379863 h:\c++\pnpz80\pnpz80\include\pnpz80hardware.h
+	"PNPZ80.h"
+	"PNPZ80Instance.h"
+	<string>
+
+1450499539 h:\c++\pnpz80\pnpz80\include\pnpz80instance.h
+	<stdint.h>
+	<vector>
+	"PNPZ80.h"
+	"PNPZ80Simulator.h"
+
+1450590786 h:\c++\pnpz80\pnpz80\include\pnpz80simulator.h
+	"PNPZ80.h"
+	<stdint.h>
+
+1450380285 source:h:\c++\pnpz80\examples\pnpz80 emulation basic example\src\pnpz80audio.cpp
+	"PNPZ80Audio.h"
+	<iostream>
+

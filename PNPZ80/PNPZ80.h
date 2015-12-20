@@ -18,6 +18,12 @@ enum
     A_REG = 0b111
 };
 
+// Flags
+enum
+{
+
+
+};
 
 #ifdef BUILD_DLL
     #define DLL_EXPORT __declspec(dllexport)

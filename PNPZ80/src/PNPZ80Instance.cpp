@@ -48,7 +48,7 @@ bool PNPZ80Instance::loadRAMFromFile(const char* filename)
     fseek(f, 0, SEEK_END);
     fSize = ftell(f);
     rewind(f);
-    // File size is too large!
+    // Check if the file size is too large
     if (fSize < 0xffff)
     {
         if(fread(this->ram, fSize, 1, f) == fSize)
