@@ -1,0 +1,32 @@
+# depslib dependency file v1.0
+1450584129 source:h:\c++\pnpz80 emulation\main.cpp
+	<iostream>
+	<PNPZ80.h>
+	"PNPZ80Audio.h"
+
+1450549662 h:\c++\pnpz80\pnpz80.h
+	<windows.h>
+	<stdint.h>
+
+1450499539 h:\c++\pnpz80\include\pnpz80instance.h
+	<stdint.h>
+	<vector>
+	"PNPZ80.h"
+	"PNPZ80Simulator.h"
+
+1450583984 h:\c++\pnpz80\include\pnpz80simulator.h
+	"PNPZ80.h"
+	<stdint.h>
+
+1450380285 source:h:\c++\pnpz80 emulation\src\pnpz80audio.cpp
+	"PNPZ80Audio.h"
+	<iostream>
+
+1450377882 h:\c++\pnpz80 emulation\include\pnpz80audio.h
+	<PNPZ80Hardware.h>
+
+1450379863 h:\c++\pnpz80\include\pnpz80hardware.h
+	"PNPZ80.h"
+	"PNPZ80Instance.h"
+	<string>
+

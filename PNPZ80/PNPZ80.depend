@@ -1,0 +1,40 @@
+# depslib dependency file v1.0
+1450499555 source:h:\c++\pnpz80\src\pnpz80instance.cpp
+	"PNPZ80Instance.h"
+	"PNPZ80Hardware.h"
+	<iostream>
+	<stdio.h>
+
+1450499539 h:\c++\pnpz80\include\pnpz80instance.h
+	<stdint.h>
+	<vector>
+	"PNPZ80.h"
+	"PNPZ80Simulator.h"
+
+1450378145 source:h:\c++\pnpz80\main.cpp
+	"PNPZ80.h"
+
+1450549662 h:\c++\pnpz80\pnpz80.h
+	<windows.h>
+	<stdint.h>
+
+1450496291 h:\c++\pnpz80\include\pnpz80simulator.h
+	"PNPZ80.h"
+	<stdint.h>
+
+1450549779 source:h:\c++\pnpz80\src\pnpz80simulator.cpp
+	"PNPZ80Simulator.h"
+	<iostream>
+
+1450379896 source:h:\c++\pnpz80\src\pnpz80hardware.cpp
+	"PNPZ80Hardware.h"
+
+1450379863 h:\c++\pnpz80\include\pnpz80hardware.h
+	"PNPZ80.h"
+	"PNPZ80Instance.h"
+	<string>
+
+1450549662 h:\c++\pnpz80\\pnpz80.h
+	<windows.h>
+	<stdint.h>
+

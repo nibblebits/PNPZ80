@@ -1,0 +1,46 @@
+EXPORTS
+    DllMain@12 @1
+    _ZN14PNPZ80Hardware10getVersionEv @2
+    _ZN14PNPZ80Hardware17getPNPZ80InstanceEv @3
+    _ZN14PNPZ80Hardware17registerIOAddressEh @4
+    _ZN14PNPZ80Hardware17setPNPZ80InstanceEP14PNPZ80Instance @5
+    _ZN14PNPZ80Hardware5inputEhh @6
+    _ZN14PNPZ80Hardware6outputEhPh @7
+    _ZN14PNPZ80Hardware7getNameEv @8
+    _ZN14PNPZ80HardwareC1ESsSs @9
+    _ZN14PNPZ80HardwareC2ESsSs @10
+    _ZN14PNPZ80HardwareD0Ev @11
+    _ZN14PNPZ80HardwareD1Ev @12
+    _ZN14PNPZ80HardwareD2Ev @13
+    _ZN14PNPZ80Instance12getSimulatorEv @14
+    _ZN14PNPZ80Instance14attachHardwareEP14PNPZ80Hardware @15
+    _ZN14PNPZ80Instance15loadRAMFromFileEPKc @16
+    _ZN14PNPZ80Instance17loadRAMFromBufferEPKct @17
+    _ZN14PNPZ80Instance17registerIOAddressEhP14PNPZ80Hardware @18
+    _ZN14PNPZ80Instance4initEv @19
+    _ZN14PNPZ80Instance5resetEv @20
+    _ZN14PNPZ80Instance6getRAMEv @21
+    _ZN14PNPZ80Instance7processEv @22
+    _ZN14PNPZ80InstanceC1Ev @23
+    _ZN14PNPZ80InstanceC2Ev @24
+    _ZN14PNPZ80InstanceD0Ev @25
+    _ZN14PNPZ80InstanceD1Ev @26
+    _ZN14PNPZ80InstanceD2Ev @27
+    _ZN15PNPZ80Simulator13processOpcodeEv @28
+    _ZN15PNPZ80Simulator15getMainRegisterEh @29
+    _ZN15PNPZ80Simulator26getMostSignificantRegisterEh @30
+    _ZN15PNPZ80Simulator27getLeastSignificantRegisterEh @31
+    _ZN15PNPZ80Simulator4initEv @32
+    _ZN15PNPZ80Simulator5getBCEv @33
+    _ZN15PNPZ80Simulator5getHLEv @34
+    _ZN15PNPZ80SimulatorC1EPc @35
+    _ZN15PNPZ80SimulatorC2EPc @36
+    _ZN15PNPZ80SimulatorD0Ev @37
+    _ZN15PNPZ80SimulatorD1Ev @38
+    _ZN15PNPZ80SimulatorD2Ev @39
+    _ZTI14PNPZ80Hardware @40 DATA
+    _ZTI14PNPZ80Instance @41 DATA
+    _ZTI15PNPZ80Simulator @42 DATA
+    _ZTV14PNPZ80Hardware @43 DATA
+    _ZTV14PNPZ80Instance @44 DATA
+    _ZTV15PNPZ80Simulator @45 DATA
