@@ -16,7 +16,7 @@ class DLL_EXPORT PNPZ80Instance
         void process();
         bool registerIOAddress(uint8_t addr, PNPZ80Hardware* hardware);
         void attachHardware(PNPZ80Hardware* hardware);
-        void loadRAMFromBuffer(const char* buf, uint16_t s);
+        void loadRAMFromBuffer(uint8_t* buf, uint16_t s);
         bool loadRAMFromFile(const char* filename);
         PNPZ80Simulator* getSimulator();
         char* getRAM();

@@ -18,11 +18,24 @@ enum
     A_REG = 0b111
 };
 
+// Register pair ids
+enum
+{
+    BC_REG_PAIR = 0b00,
+    DE_REG_PAIR = 0b01,
+    HL_REG_PAIR = 0b10,
+    SP_REG_PAIR = 0b11
+};
+
 // Flags
 enum
 {
-
-
+    C_FLAG = 0b00000001,
+    N_FLAG = 0b00000010,
+    PV_FLAG = 0b00000100,
+    H_FLAG = 0b00010000,
+    Z_FLAG = 0b01000000,
+    S_FLAG = 0b10000000
 };
 
 #ifdef BUILD_DLL

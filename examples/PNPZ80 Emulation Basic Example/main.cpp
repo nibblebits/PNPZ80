@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    char buf[100] = {0x3a, 0x32, 0x88};
+    uint8_t buf[100] = {0x01, 0xff, 0x40};
     PNPZ80Instance z80_system;
     // Attach the audio hardware
     z80_system.attachHardware(new PNPZ80Audio());
@@ -15,5 +15,6 @@ int main()
     std::cout << "A reg: " << (int)z80_system.getSimulator()->getMainRegister(A_REG) << std::endl;
     std::cout << "B reg:" << (int)z80_system.getSimulator()->getMainRegister(B_REG) << std::endl;
     std::cout << "C reg:" << (int)z80_system.getSimulator()->getMainRegister(C_REG) << std::endl;
+    std::cout << "F reg:" << (int)z80_system.getSimulator()->getMainRegister(F_REG) << std::endl;
     return 0;
 }

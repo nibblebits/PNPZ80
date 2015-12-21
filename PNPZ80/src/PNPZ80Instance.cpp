@@ -35,7 +35,7 @@ char* PNPZ80Instance::getRAM()
 {
     return this->ram;
 }
-void PNPZ80Instance::loadRAMFromBuffer(const char* buf, uint16_t s)
+void PNPZ80Instance::loadRAMFromBuffer(uint8_t* buf, uint16_t s)
 {
     memcpy(this->ram, buf, s);
 }

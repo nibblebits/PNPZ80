@@ -7,12 +7,10 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../PNPZ80 Emulation/bin/Debug/PNPZ80" prefix_auto="1" extension_auto="1" />
+				<Option output="../examples/PNPZ80 Emulation Basic Example/bin/Debug/PNPZ80" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Option host_application="H:/C++/PNPZ80 Emulation/bin/Debug/PNPZ80 Emulation.exe" />
-				<Option run_host_application_in_terminal="1" />
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
@@ -21,7 +19,7 @@
 					<Add option="-g" />
 					<Add option="-DBUILD_DLL" />
 					<Add directory="include" />
-					<Add directory="H:/C++/PNPZ80/" />
+					<Add directory="H:/C++/PNPZ80/PNPZ80" />
 				</Compiler>
 				<Linker>
 					<Add library="user32" />

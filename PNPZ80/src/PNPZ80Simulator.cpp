@@ -25,8 +25,11 @@ void PNPZ80Simulator::init()
     this->PC = 0;
     this->SP = 0xffff;
     this->I = 0;
+    this->R = 0;
     this->IX = 0;
     this->IY = 0;
+    this->IFF1 = true;
+    this->IFF2 = true;
 }
 uint16_t PNPZ80Simulator::getHL()
 {
@@ -40,6 +43,50 @@ uint16_t PNPZ80Simulator::getBC()
 uint16_t PNPZ80Simulator::getDE()
 {
     return (((uint16_t) this->regs[D_REG] << 8) | this->regs[E_REG]);
+}
+
+void PNPZ80Simulator::setRegPair(uint8_t id, uint16_t val)
+{
+    if (id == BC_REG_PAIR)
+    {
+        this->regs[B_REG] = ((uint16_t) val >> 8);
+        this->regs[C_REG] = ((uint16_t) val & 0xff);
+    }
+    else if(id == DE_REG_PAIR)
+    {
+        this->regs[D_REG] = ((uint16_t) val >> 8);
+        this->regs[E_REG] = ((uint16_t) val & 0xff);
+    }
+    else if(id == HL_REG_PAIR)
+    {
+        this->regs[H_REG] = ((uint16_t) val >> 8);
+        this->regs[L_REG] = ((uint16_t) val & 0xff);
+    }
+    else if(id == SP_REG_PAIR)
+    {
+        this->SP = val;
+    }
+}
+uint16_t PNPZ80Simulator::getRegPair(uint8_t id)
+{
+    if (id == BC_REG_PAIR)
+    {
+        return this->getBC();
+    }
+    else if(id == DE_REG_PAIR)
+    {
+        return this->getDE();
+    }
+    else if(id == HL_REG_PAIR)
+    {
+        return this->getHL();
+    }
+    else if(id == SP_REG_PAIR)
+    {
+        return this->SP;
+    }
+
+    return 0;
 }
 
 uint8_t PNPZ80Simulator::getMainRegister(uint8_t id)
@@ -61,7 +108,9 @@ void PNPZ80Simulator::processOpcode()
 {
     uint8_t opcode = ram[PC];
     uint8_t b67 = opcode >> 6;
+    uint8_t b45 = (opcode >> 4) & 0b00000011;
     uint8_t b012 = (opcode & 0b00000111);
+    uint8_t b0123 = (opcode & 0b00001111);
     uint8_t b345 = (opcode & 0b00111000) >> 3;
     uint8_t d;
     uint8_t n;
@@ -168,9 +217,97 @@ void PNPZ80Simulator::processOpcode()
         nn = (n2 << 8) | n;
         this->ram[nn] = this->regs[A_REG];
     }
+    else if (opcode == 0b11101101)
+    {
+        operand = this->ram[++PC];
+        if (operand == 0b01010111) // LD A,I
+        {
+            this->regs[A_REG] = this->I;
+            if (this->I < 0)
+            {
+                this->regs[F_REG] |= S_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(S_FLAG);
+            }
+
+            if(I == 0)
+            {
+                this->regs[F_REG] |= Z_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(Z_FLAG);
+            }
+
+            this->regs[F_REG] |= H_FLAG;
+
+            if(IFF2)
+            {
+                this->regs[F_REG] |= PV_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(PV_FLAG);
+            }
+            this->regs[F_REG] |= N_FLAG;
+        }
+        else if(operand == 0b01011111) // LD A,R
+        {
+            this->regs[A_REG] = this->R;
+            if (this->R < 0)
+            {
+                this->regs[F_REG] |= S_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(S_FLAG);
+            }
+
+            if(R == 0)
+            {
+                this->regs[F_REG] |= Z_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(Z_FLAG);
+            }
+
+            this->regs[F_REG] |= H_FLAG;
+
+            if(IFF2)
+            {
+                this->regs[F_REG] |= PV_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(PV_FLAG);
+            }
+            this->regs[F_REG] |= N_FLAG;
+        }
+        else if(operand == 0b01000111) // LD I,A
+        {
+            this->I = this->regs[A_REG];
+        }
+        else if(operand == 0b01001111) // LD R,A
+        {
+            this->R = this->regs[A_REG];
+        }
+    }
+    else if(b67 == 0b00 && b0123 == 0b0001) // LD dd,nn
+    {
+        n = this->ram[++PC];
+        n2 = this->ram[++PC];
+        // Little endian so sort it to big endian
+        nn = (n2 << 8) | (n & 0xff);
+        this->setRegPair(b45, nn);
+    }
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
     }
+
+    R++;
     PC++;
 }
