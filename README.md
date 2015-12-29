@@ -10,3 +10,5 @@ Feel free to contribute to the project, at the moment the important part is fini
 
 Compiling notes:
 If you are using Codeblocks to compile the PNPZ80 then be sure to change the libaries in the build options to include the header files and libaries at the correct directories.
+
+ALL FUTURE COMMITS ARE GOING TO THE DEV BRANCH UNTIL A RELEASE IS MADE. MASTER BRANCH IS CURRENTLY UNSTABLE UNTIL RELEASE V1.0
