@@ -45,6 +45,11 @@ uint16_t PNPZ80Simulator::getDE()
     return (((uint16_t) this->regs[D_REG] << 8) | this->regs[E_REG]);
 }
 
+uint16_t PNPZ80Simulator::getIX()
+{
+    return this->IX;
+}
+
 void PNPZ80Simulator::setRegPair(uint8_t id, uint16_t val)
 {
     if (id == BC_REG_PAIR)
@@ -139,19 +144,29 @@ void PNPZ80Simulator::processOpcode()
     {
         operand = this->ram[++PC];
         reg = this->getMostSignificantRegister(operand);
-        d = this->ram[++PC];
         if (operand == 0b00110110) // LD (IX+d),n
         {
+            d = this->ram[++PC];
             n = this->ram[++PC];
             this->ram[IX+d] = n;
         }
+        else if(operand == 0b00100001) // LD IX, nn
+        {
+            n = this->ram[++PC];
+            n2 = this->ram[++PC];
+            // Little endian so sort it to big endian
+            nn = (n2 << 8) | (n & 0xff);
+            this->IX = nn;
+        }
         else if (reg == 0b110) // LD (IX+d), r
         {
+            d = this->ram[++PC];
             reg = this->getLeastSignificantRegister(operand);
             this->ram[IX+d] = this->regs[reg];
         }
         else // LD r,(IX+d)
         {
+            d = this->ram[++PC];
             this->regs[reg] = this->ram[IX+d];
         }
     }
@@ -303,6 +318,19 @@ void PNPZ80Simulator::processOpcode()
         nn = (n2 << 8) | (n & 0xff);
         this->setRegPair(b45, nn);
     }
+    else if(opcode == 0b11011101)
+    {
+        operand = this->ram[++PC];
+        if (operand == 0b00100001) // LD IX, nn
+        {
+            n = this->ram[++PC];
+            n2 = this->ram[++PC];
+            // Little endian so sort it to big endian
+            nn = (n2 << 8) | (n & 0xff);
+            this->IX = nn;
+        }
+    }
+    // Last Instruction: LD IX, nn
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
