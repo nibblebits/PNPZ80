@@ -335,7 +335,7 @@ void PNPZ80Simulator::processOpcode()
     else if(opcode == 0b11011101)
     {
         operand = this->ram[++PC];
-        if (operand == 0b00100001) // LD IX, nn
+        if (operand == 0b00100001) // LD IX,nn
         {
             n = this->ram[++PC];
             n2 = this->ram[++PC];
@@ -344,7 +344,15 @@ void PNPZ80Simulator::processOpcode()
             this->IX = nn;
         }
     }
-    // Last Instruction: LD IY, nn
+    else if(opcode == 0b00101010) // LD HL,(nn)
+    {
+        n = this->ram[++PC];
+        n2 = this->ram[++PC];
+        nn = (n2 << 8) | (n & 0xff);
+        this->regs[L_REG] = this->ram[nn];
+        this->regs[H_REG] = this->ram[nn+1];
+    }
+    // Last instruction LD HL,(nn)
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
