@@ -23,7 +23,7 @@ class DLL_EXPORT PNPZ80Simulator
     private:
         uint8_t getMostSignificantRegister(uint8_t in);
         uint8_t getLeastSignificantRegister(uint8_t in);
-
+        void b_split(uint8_t byte, uint8_t* b67, uint8_t* b345, uint8_t* b012, uint8_t* b45, uint8_t* b0123);
         char* ram;
 
         // The regs pointer will point to either the main registers or the alternative registers

@@ -38,14 +38,15 @@ EXPORTS
     _ZN15PNPZ80Simulator5getHLEv @37
     _ZN15PNPZ80Simulator5getIXEv @38
     _ZN15PNPZ80Simulator5getIYEv @39
-    _ZN15PNPZ80SimulatorC1EPc @40
-    _ZN15PNPZ80SimulatorC2EPc @41
-    _ZN15PNPZ80SimulatorD0Ev @42
-    _ZN15PNPZ80SimulatorD1Ev @43
-    _ZN15PNPZ80SimulatorD2Ev @44
-    _ZTI14PNPZ80Hardware @45 DATA
-    _ZTI14PNPZ80Instance @46 DATA
-    _ZTI15PNPZ80Simulator @47 DATA
-    _ZTV14PNPZ80Hardware @48 DATA
-    _ZTV14PNPZ80Instance @49 DATA
-    _ZTV15PNPZ80Simulator @50 DATA
+    _ZN15PNPZ80Simulator7b_splitEhPhS0_S0_S0_S0_ @40
+    _ZN15PNPZ80SimulatorC1EPc @41
+    _ZN15PNPZ80SimulatorC2EPc @42
+    _ZN15PNPZ80SimulatorD0Ev @43
+    _ZN15PNPZ80SimulatorD1Ev @44
+    _ZN15PNPZ80SimulatorD2Ev @45
+    _ZTI14PNPZ80Hardware @46 DATA
+    _ZTI14PNPZ80Instance @47 DATA
+    _ZTI15PNPZ80Simulator @48 DATA
+    _ZTV14PNPZ80Hardware @49 DATA
+    _ZTV14PNPZ80Instance @50 DATA
+    _ZTV15PNPZ80Simulator @51 DATA
