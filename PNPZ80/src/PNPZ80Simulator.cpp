@@ -142,6 +142,7 @@ void PNPZ80Simulator::processOpcode()
     uint8_t reg;
     uint8_t operand;
     uint16_t nn;
+    uint16_t result;
 
     // Split the bits of the opcode and store them in the bit variables
     b_split(opcode, &b67, &b345, &b012, &b45, &b0123);
@@ -266,6 +267,8 @@ void PNPZ80Simulator::processOpcode()
     else if (opcode == 0b11101101)
     {
         operand = this->ram[++PC];
+        // Bit split the óperand
+        b_split(operand, &b67, &b345, &b012, &b45, &b0123);
         if (operand == 0b01010111) // LD A,I
         {
             this->regs[A_REG] = this->I;
@@ -340,6 +343,14 @@ void PNPZ80Simulator::processOpcode()
         {
             this->R = this->regs[A_REG];
         }
+        else if(b67 == 0b01 && b0123 == 0b1011) // LD dd,(nn)
+        {
+            n = this->ram[++PC];
+            n2 = this->ram[++PC];
+            nn = (n2 << 8) | (n & 0xff);
+            result = (this->ram[nn+1] << 8 | (this->ram[nn] & 0xff));
+            this->setRegPair(b45, result);
+        }
     }
     else if(b67 == 0b00 && b0123 == 0b0001) // LD dd,nn
     {
@@ -369,7 +380,7 @@ void PNPZ80Simulator::processOpcode()
         this->regs[L_REG] = this->ram[nn];
         this->regs[H_REG] = this->ram[nn+1];
     }
-    // Last instruction LD HL,(nn)
+    // Last instruction LD dd,(nn)
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
