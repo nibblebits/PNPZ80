@@ -131,6 +131,12 @@ void PNPZ80Simulator::b_split(uint8_t byte, uint8_t* b67, uint8_t* b345, uint8_t
 void PNPZ80Simulator::processOpcode()
 {
     uint8_t opcode = ram[PC];
+    emulate(opcode);
+    PC++;
+}
+
+void PNPZ80Simulator::emulate(uint32_t opcode)
+{
     uint8_t b67;
     uint8_t b45;
     uint8_t b012;
@@ -376,10 +382,6 @@ void PNPZ80Simulator::processOpcode()
         nn = (n2 << 8) | (n & 0xff);
         this->setRegPair(b45, nn);
     }
-    else if(opcode == 0b11011101)
-    {
-
-    }
     else if(opcode == 0b00101010) // LD HL,(nn)
     {
         n = this->ram[++PC];
@@ -395,5 +397,4 @@ void PNPZ80Simulator::processOpcode()
     }
 
     R++;
-    PC++;
 }

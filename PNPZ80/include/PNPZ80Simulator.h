@@ -9,6 +9,7 @@ class DLL_EXPORT PNPZ80Simulator
     public:
         PNPZ80Simulator(char* ram);
         virtual ~PNPZ80Simulator();
+        void emulate(uint32_t opcode);
         void processOpcode();
         void init();
         uint16_t getHL();
