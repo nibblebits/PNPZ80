@@ -181,6 +181,22 @@ void PNPZ80Simulator::processOpcode()
             nn = (n2 << 8) | (n & 0xff);
             this->IX = nn;
         }
+        if (operand == 0b00100001) // LD IX,nn
+        {
+            n = this->ram[++PC];
+            n2 = this->ram[++PC];
+            // Little endian so sort it to big endian
+            nn = (n2 << 8) | (n & 0xff);
+            this->IX = nn;
+        }
+        else if(operand == 0b00101010) // LD IX,(nn)
+        {
+            n = this->ram[++PC];
+            n2 = this->ram[++PC];
+            nn = (n2 << 8) | (n & 0xff);
+            result = (this->ram[nn+1] << 8 | (this->ram[nn] & 0xff));
+            this->IX = result;
+        }
         else if (reg == 0b110) // LD (IX+d), r
         {
             d = this->ram[++PC];
@@ -362,15 +378,7 @@ void PNPZ80Simulator::processOpcode()
     }
     else if(opcode == 0b11011101)
     {
-        operand = this->ram[++PC];
-        if (operand == 0b00100001) // LD IX,nn
-        {
-            n = this->ram[++PC];
-            n2 = this->ram[++PC];
-            // Little endian so sort it to big endian
-            nn = (n2 << 8) | (n & 0xff);
-            this->IX = nn;
-        }
+
     }
     else if(opcode == 0b00101010) // LD HL,(nn)
     {
