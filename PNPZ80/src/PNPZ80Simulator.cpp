@@ -128,6 +128,20 @@ void PNPZ80Simulator::b_split(uint8_t byte, uint8_t* b67, uint8_t* b345, uint8_t
         *b345 = (byte & 0b00111000) >> 3;
 }
 
+uint16_t PNPZ80Simulator::readWordFromRAM(uint16_t address)
+{
+    return (this->ram[address+1] << 8 | (this->ram[address] & 0xff));
+}
+
+uint16_t PNPZ80Simulator::getWordAtPCAndIncrementTwice()
+{
+    uint8_t n;
+    uint8_t n2;
+    n = this->ram[++PC];
+    n2 = this->ram[++PC];
+    return (n2 << 8) | (n & 0xff);
+}
+
 void PNPZ80Simulator::processOpcode()
 {
     uint8_t opcode = ram[PC];
@@ -197,10 +211,8 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(operand == 0b00101010) // LD IX,(nn)
         {
-            n = this->ram[++PC];
-            n2 = this->ram[++PC];
-            nn = (n2 << 8) | (n & 0xff);
-            result = (this->ram[nn+1] << 8 | (this->ram[nn] & 0xff));
+            nn = this->getWordAtPCAndIncrementTwice();
+            result = this->readWordFromRAM(nn);
             this->IX = result;
         }
         else if (reg == 0b110) // LD (IX+d), r

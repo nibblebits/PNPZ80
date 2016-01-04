@@ -30,24 +30,26 @@ EXPORTS
     _ZN15PNPZ80Simulator10setRegPairEht @29
     _ZN15PNPZ80Simulator13processOpcodeEv @30
     _ZN15PNPZ80Simulator15getMainRegisterEh @31
-    _ZN15PNPZ80Simulator26getMostSignificantRegisterEh @32
-    _ZN15PNPZ80Simulator27getLeastSignificantRegisterEh @33
-    _ZN15PNPZ80Simulator4initEv @34
-    _ZN15PNPZ80Simulator5getBCEv @35
-    _ZN15PNPZ80Simulator5getDEEv @36
-    _ZN15PNPZ80Simulator5getHLEv @37
-    _ZN15PNPZ80Simulator5getIXEv @38
-    _ZN15PNPZ80Simulator5getIYEv @39
-    _ZN15PNPZ80Simulator7b_splitEhPhS0_S0_S0_S0_ @40
-    _ZN15PNPZ80Simulator7emulateEj @41
-    _ZN15PNPZ80SimulatorC1EPc @42
-    _ZN15PNPZ80SimulatorC2EPc @43
-    _ZN15PNPZ80SimulatorD0Ev @44
-    _ZN15PNPZ80SimulatorD1Ev @45
-    _ZN15PNPZ80SimulatorD2Ev @46
-    _ZTI14PNPZ80Hardware @47 DATA
-    _ZTI14PNPZ80Instance @48 DATA
-    _ZTI15PNPZ80Simulator @49 DATA
-    _ZTV14PNPZ80Hardware @50 DATA
-    _ZTV14PNPZ80Instance @51 DATA
-    _ZTV15PNPZ80Simulator @52 DATA
+    _ZN15PNPZ80Simulator15readWordFromRAMEt @32
+    _ZN15PNPZ80Simulator26getMostSignificantRegisterEh @33
+    _ZN15PNPZ80Simulator27getLeastSignificantRegisterEh @34
+    _ZN15PNPZ80Simulator28getWordAtPCAndIncrementTwiceEv @35
+    _ZN15PNPZ80Simulator4initEv @36
+    _ZN15PNPZ80Simulator5getBCEv @37
+    _ZN15PNPZ80Simulator5getDEEv @38
+    _ZN15PNPZ80Simulator5getHLEv @39
+    _ZN15PNPZ80Simulator5getIXEv @40
+    _ZN15PNPZ80Simulator5getIYEv @41
+    _ZN15PNPZ80Simulator7b_splitEhPhS0_S0_S0_S0_ @42
+    _ZN15PNPZ80Simulator7emulateEj @43
+    _ZN15PNPZ80SimulatorC1EPc @44
+    _ZN15PNPZ80SimulatorC2EPc @45
+    _ZN15PNPZ80SimulatorD0Ev @46
+    _ZN15PNPZ80SimulatorD1Ev @47
+    _ZN15PNPZ80SimulatorD2Ev @48
+    _ZTI14PNPZ80Hardware @49 DATA
+    _ZTI14PNPZ80Instance @50 DATA
+    _ZTI15PNPZ80Simulator @51 DATA
+    _ZTV14PNPZ80Hardware @52 DATA
+    _ZTV14PNPZ80Instance @53 DATA
+    _ZTV15PNPZ80Simulator @54 DATA
