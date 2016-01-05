@@ -28,12 +28,12 @@ EXPORTS
     _ZN14PNPZ80InstanceD2Ev @27
     _ZN15PNPZ80Simulator10getRegPairEh @28
     _ZN15PNPZ80Simulator10setRegPairEht @29
-    _ZN15PNPZ80Simulator13processOpcodeEv @30
-    _ZN15PNPZ80Simulator15getMainRegisterEh @31
-    _ZN15PNPZ80Simulator15readWordFromRAMEt @32
-    _ZN15PNPZ80Simulator26getMostSignificantRegisterEh @33
-    _ZN15PNPZ80Simulator27getLeastSignificantRegisterEh @34
-    _ZN15PNPZ80Simulator28getWordAtPCAndIncrementTwiceEv @35
+    _ZN15PNPZ80Simulator13getWordWithPCEv @30
+    _ZN15PNPZ80Simulator13processOpcodeEv @31
+    _ZN15PNPZ80Simulator15getMainRegisterEh @32
+    _ZN15PNPZ80Simulator15readWordFromRAMEt @33
+    _ZN15PNPZ80Simulator26getMostSignificantRegisterEh @34
+    _ZN15PNPZ80Simulator27getLeastSignificantRegisterEh @35
     _ZN15PNPZ80Simulator4initEv @36
     _ZN15PNPZ80Simulator5getBCEv @37
     _ZN15PNPZ80Simulator5getDEEv @38
