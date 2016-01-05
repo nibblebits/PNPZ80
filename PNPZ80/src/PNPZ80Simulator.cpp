@@ -133,7 +133,7 @@ uint16_t PNPZ80Simulator::readWordFromRAM(uint16_t address)
     return (this->ram[address+1] << 8 | (this->ram[address] & 0xff));
 }
 
-uint16_t PNPZ80Simulator::getWordAtPCAndIncrementTwice()
+uint16_t PNPZ80Simulator::getWordWithPC()
 {
     uint8_t n;
     uint8_t n2;
@@ -195,15 +195,12 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(operand == 0b00100001) // LD IX, nn
         {
-            n = this->ram[++PC];
-            n2 = this->ram[++PC];
-            // Little endian so sort it to big endian
-            nn = (n2 << 8) | (n & 0xff);
+            nn = this->getWordWithPC();
             this->IX = nn;
         }
         else if(operand == 0b00101010) // LD IX,(nn)
         {
-            nn = this->getWordAtPCAndIncrementTwice();
+            nn = this->getWordWithPC();
             result = this->readWordFromRAM(nn);
             this->IX = result;
         }
@@ -236,10 +233,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(operand == 0b00100001) // LD IY, nn
         {
-            n = this->ram[++PC];
-            n2 = this->ram[++PC];
-            // Little endian so sort it to big endian
-            nn = (n2 << 8) | (n & 0xff);
+            nn = this->getWordWithPC();
             this->IY = nn;
         }
         else // LD (IY+d),r
@@ -268,10 +262,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     }
     else if(opcode == 0b00111010) // LD A,(nn)
     {
-        n = this->ram[++PC];
-        n2 = this->ram[++PC];
-        // Little endian
-        nn = (n2 << 8) | n;
+        nn = this->getWordWithPC();
         this->regs[A_REG] = this->ram[nn];
     }
     else if(opcode == 0b00000010) // LD (BC),A
@@ -284,10 +275,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     }
     else if(opcode == 0b00110010) // LD (nn),A
     {
-        n = this->ram[++PC];
-        n2 = this->ram[++PC];
-        // Little endian
-        nn = (n2 << 8) | n;
+        nn = this->getWordWithPC();
         this->ram[nn] = this->regs[A_REG];
     }
     else if (opcode == 0b11101101)
@@ -371,26 +359,19 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(b67 == 0b01 && b0123 == 0b1011) // LD dd,(nn)
         {
-            n = this->ram[++PC];
-            n2 = this->ram[++PC];
-            nn = (n2 << 8) | (n & 0xff);
-            result = (this->ram[nn+1] << 8 | (this->ram[nn] & 0xff));
+            nn = this->getWordWithPC();
+            result = this->readWordFromRAM(nn);
             this->setRegPair(b45, result);
         }
     }
     else if(b67 == 0b00 && b0123 == 0b0001) // LD dd,nn
     {
-        n = this->ram[++PC];
-        n2 = this->ram[++PC];
-        // Little endian so sort it to big endian
-        nn = (n2 << 8) | (n & 0xff);
+        nn = this->getWordWithPC();
         this->setRegPair(b45, nn);
     }
     else if(opcode == 0b00101010) // LD HL,(nn)
     {
-        n = this->ram[++PC];
-        n2 = this->ram[++PC];
-        nn = (n2 << 8) | (n & 0xff);
+        nn = this->getWordWithPC();
         this->regs[L_REG] = this->ram[nn];
         this->regs[H_REG] = this->ram[nn+1];
     }
