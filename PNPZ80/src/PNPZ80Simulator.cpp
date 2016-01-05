@@ -201,14 +201,6 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             nn = (n2 << 8) | (n & 0xff);
             this->IX = nn;
         }
-        if (operand == 0b00100001) // LD IX,nn
-        {
-            n = this->ram[++PC];
-            n2 = this->ram[++PC];
-            // Little endian so sort it to big endian
-            nn = (n2 << 8) | (n & 0xff);
-            this->IX = nn;
-        }
         else if(operand == 0b00101010) // LD IX,(nn)
         {
             nn = this->getWordAtPCAndIncrementTwice();
@@ -402,7 +394,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         this->regs[L_REG] = this->ram[nn];
         this->regs[H_REG] = this->ram[nn+1];
     }
-    // Last instruction LD dd,(nn)
+    // Last instruction LD IX,(nn)
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
