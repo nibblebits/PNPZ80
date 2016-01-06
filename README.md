@@ -1,12 +1,12 @@
 # PNPZ80
 
-PNPZ80 stands for Plug N Play Z80. This Z80 emulator will be like no other. Once complete you will very easily be able to create your own Z80
-system on the emulator. See the example code for an example.
+PNPZ80 stands for Plug N Play Z80. PNPZ80 is a library that will allow you to create emulators that simulate the Z80 processor simply. Using PNPZ80 you can add your own virtual hardware that you have created.
 
-The code below would have made your z80 system capable of using audio, you can very easily program your own Z80 hardware as well. 
-z80_system.attachHardware(new PNPZ80Audio());
+The best way to describe PNPZ80 is that its like someone giving you a Z80 Processor and possibly some built in virtual hardware that you need to build the system you want and then leaving you to do the programming. Any hardware that is not in the core you can make yourself.
 
 Feel free to contribute to the project, at the moment the important part is finishing the Z80 simulator.
 
-Compiling notes:
+#Compiling notes:
 If you are using Codeblocks to compile the PNPZ80 then be sure to change the libaries in the build options to include the header files and libaries at the correct directories.
+
+#ALL PULL REQUESTS MUST BE TO THE "DEV" BRANCH PLEASE. ONLY THE MOST RECENT RELEASE WILL BE IN THE "MASTER" BRANCH.
