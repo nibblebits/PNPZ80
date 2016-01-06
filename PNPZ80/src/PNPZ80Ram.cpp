@@ -8,6 +8,9 @@ PNPZ80Ram::PNPZ80Ram(uint16_t _size)
 {
     this->buf_size = _size;
     this->buf = new char[_size];
+
+    // Clear the entire memory
+    memset(this->buf, 0, _size);
 }
 
 PNPZ80Ram::~PNPZ80Ram()
