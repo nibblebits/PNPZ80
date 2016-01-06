@@ -28,7 +28,7 @@ class DLL_EXPORT PNPZ80Simulator
         uint8_t getMostSignificantRegister(uint8_t in);
         uint8_t getLeastSignificantRegister(uint8_t in);
         uint16_t getWordWithPC();
-        void b_split(uint8_t byte, uint8_t* b67, uint8_t* b345, uint8_t* b012, uint8_t* b45, uint8_t* b0123);
+        void b_split(uint8_t byte, uint8_t* b67, uint8_t* b345, uint8_t* b012, uint8_t* b567, uint8_t* b45, uint8_t* b0123);
         PNPZ80Ram* ram;
 
         // The regs pointer will point to either the main registers or the alternative registers

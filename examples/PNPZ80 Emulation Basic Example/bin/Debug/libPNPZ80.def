@@ -39,7 +39,7 @@ EXPORTS
     _ZN15PNPZ80Simulator5getHLEv @38
     _ZN15PNPZ80Simulator5getIXEv @39
     _ZN15PNPZ80Simulator5getIYEv @40
-    _ZN15PNPZ80Simulator7b_splitEhPhS0_S0_S0_S0_ @41
+    _ZN15PNPZ80Simulator7b_splitEhPhS0_S0_S0_S0_S0_ @41
     _ZN15PNPZ80Simulator7emulateEj @42
     _ZN15PNPZ80SimulatorC1EP9PNPZ80Ram @43
     _ZN15PNPZ80SimulatorC2EP9PNPZ80Ram @44

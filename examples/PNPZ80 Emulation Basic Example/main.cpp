@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
     // Machine instructions for the Z80 assemblers
-    uint8_t buf[100] = {0xfd, 0x21, 0x82, 0x53, 0xfd, 0x22, 0x20, 0x0f};
+    uint8_t buf[100] = {0x21, 0x82, 0x53, 0xf9};
     PNPZ80Instance z80_system;
 
     // Attach the audio hardware
@@ -26,6 +26,7 @@ int main()
     std::cout << "HL regs: " << (int)z80_system.getSimulator()->getRegPair(HL_REG_PAIR) << std::endl;
     std::cout << "DE regs: " << (int)z80_system.getSimulator()->getRegPair(DE_REG_PAIR) << std::endl;
     std::cout << "BC regs: " << (int)z80_system.getSimulator()->getRegPair(BC_REG_PAIR) << std::endl;
+    std::cout << "SP regs: " << (int)z80_system.getSimulator()->getRegPair(SP_REG_PAIR) << std::endl;
     std::cout << "memory 3872: " << (int) z80_system.getRAM()->readWord(3872) << std::endl;
     return 0;
 }
