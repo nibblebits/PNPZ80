@@ -394,7 +394,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         this->ram->writeWord(nn, this->getRegPair(HL_REG_PAIR));
     }
 
-    // Last instruction LD (nn),dd
+    // Last instruction LD (nn),IX
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
