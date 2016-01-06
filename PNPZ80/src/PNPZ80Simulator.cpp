@@ -366,6 +366,11 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             result = this->ram->readWord(nn);
             this->setRegPair(b45, result);
         }
+        else if(b67 == 0b01 && b0123 == 0b0011) // LD (nn),dd
+        {
+            nn = this->getWordWithPC();
+            this->ram->writeWord(nn, this->getRegPair(b45));
+        }
     }
     else if(b67 == 0b00 && b0123 == 0b0001) // LD dd,nn
     {
@@ -384,7 +389,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         this->ram->writeWord(nn, this->getRegPair(HL_REG_PAIR));
     }
 
-    // Last instruction LD (nn),HL
+    // Last instruction LD (nn),dd
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
