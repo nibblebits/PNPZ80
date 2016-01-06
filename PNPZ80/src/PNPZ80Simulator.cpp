@@ -202,6 +202,11 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             result = this->ram->readWord(nn);
             this->IX = result;
         }
+        else if(operand == 0b00100010) // LD (nn),IX
+        {
+            nn = this->getWordWithPC();
+            this->ram->writeWord(nn, this->getIX());
+        }
         else if (reg == 0b110) // LD (IX+d), r
         {
             d = this->ram->read(++PC);
