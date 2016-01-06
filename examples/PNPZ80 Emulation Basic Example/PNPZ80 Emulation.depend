@@ -30,7 +30,7 @@
 	"PNPZ80Instance.h"
 	<string>
 
-1452012771 source:h:\c++\pnpz80\examples\pnpz80 emulation basic example\main.cpp
+1452044193 source:h:\c++\pnpz80\examples\pnpz80 emulation basic example\main.cpp
 	<iostream>
 	<PNPZ80.h>
 	"PNPZ80Audio.h"
@@ -47,17 +47,20 @@
 	"PNPZ80Instance.h"
 	<string>
 
-1450668251 h:\c++\pnpz80\pnpz80\include\pnpz80instance.h
+1452042141 h:\c++\pnpz80\pnpz80\include\pnpz80instance.h
 	<stdint.h>
 	<vector>
 	"PNPZ80.h"
 	"PNPZ80Simulator.h"
 
-1452039874 h:\c++\pnpz80\pnpz80\include\pnpz80simulator.h
+1452043574 h:\c++\pnpz80\pnpz80\include\pnpz80simulator.h
 	"PNPZ80.h"
-	<stdint.h>
+	"PNPZ80Ram.h"
 
 1451410756 source:h:\c++\pnpz80\examples\pnpz80 emulation basic example\src\pnpz80audio.cpp
 	"PNPZ80Audio.h"
 	<iostream>
+
+1452044308 h:\c++\pnpz80\pnpz80\include\pnpz80ram.h
+	"PNPZ80.h"
 

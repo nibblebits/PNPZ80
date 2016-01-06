@@ -5,16 +5,19 @@
 
 PNPZ80Instance::PNPZ80Instance()
 {
+    this->simulator = NULL;
+    this->ram = NULL;
     init();
 }
 
 PNPZ80Instance::~PNPZ80Instance()
 {
+    delete this->ram;
     delete this->simulator;
 }
+
 void PNPZ80Instance::init()
 {
-    this->simulator = NULL;
     reset();
 }
 void PNPZ80Instance::reset()
@@ -28,16 +31,23 @@ void PNPZ80Instance::reset()
     {
         delete this->simulator;
     }
+
+    if (this->ram)
+    {
+        delete this->ram;
+    }
+
+    this->ram = new PNPZ80Ram(0xffff);
     this->simulator = new PNPZ80Simulator(ram);
 }
 
-char* PNPZ80Instance::getRAM()
+PNPZ80Ram* PNPZ80Instance::getRAM()
 {
     return this->ram;
 }
 void PNPZ80Instance::loadRAMFromBuffer(uint8_t* buf, uint16_t s)
 {
-    memcpy(this->ram, buf, s);
+    memcpy(this->ram->getBuffer(), buf, s);
 }
 
 bool PNPZ80Instance::loadRAMFromFile(const char* filename)

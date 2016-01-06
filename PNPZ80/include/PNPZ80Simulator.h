@@ -2,12 +2,12 @@
 #define PNPZ80SIMULATOR_H
 
 #include "PNPZ80.h"
-#include <stdint.h>
+#include "PNPZ80Ram.h"
 
 class DLL_EXPORT PNPZ80Simulator
 {
     public:
-        PNPZ80Simulator(char* ram);
+        PNPZ80Simulator(PNPZ80Ram* ram);
         virtual ~PNPZ80Simulator();
         void emulate(uint32_t opcode);
         void processOpcode();
@@ -25,10 +25,8 @@ class DLL_EXPORT PNPZ80Simulator
         uint8_t getMostSignificantRegister(uint8_t in);
         uint8_t getLeastSignificantRegister(uint8_t in);
         uint16_t getWordWithPC();
-        uint16_t readWordFromRAM(uint16_t address);
-        void setWordInRam(uint16_t address, uint16_t word);
         void b_split(uint8_t byte, uint8_t* b67, uint8_t* b345, uint8_t* b012, uint8_t* b45, uint8_t* b0123);
-        char* ram;
+        PNPZ80Ram* ram;
 
         // The regs pointer will point to either the main registers or the alternative registers
         uint8_t* regs;

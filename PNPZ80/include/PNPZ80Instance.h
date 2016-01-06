@@ -19,11 +19,11 @@ class DLL_EXPORT PNPZ80Instance
         void loadRAMFromBuffer(uint8_t* buf, uint16_t s);
         bool loadRAMFromFile(const char* filename);
         PNPZ80Simulator* getSimulator();
-        char* getRAM();
+        PNPZ80Ram* getRAM();
 
     protected:
     private:
-        char ram[0xffff];
+        PNPZ80Ram* ram;
         // Holds pointers to hardware
         std::vector<PNPZ80Hardware*> hardware;
         // Holds pointers to the IO addresses

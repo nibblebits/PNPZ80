@@ -7,6 +7,7 @@ int main()
 {
     uint8_t buf[100] = {0x21, 0x5e, 0x01, 0x22, 0xf3, 0x0e};
     PNPZ80Instance z80_system;
+
     // Attach the audio hardware
     z80_system.attachHardware(new PNPZ80Audio());
     z80_system.loadRAMFromBuffer(buf, 100);
@@ -20,6 +21,6 @@ int main()
     std::cout << "IY reg: " << (int)z80_system.getSimulator()->getIY() << std::endl;
     std::cout << "HL regs: " << (int)z80_system.getSimulator()->getRegPair(HL_REG_PAIR) << std::endl;
     std::cout << "DE regs: " << (int)z80_system.getSimulator()->getRegPair(DE_REG_PAIR) << std::endl;
-    std::cout << "memory 3827: " << (int) z80_system.getRAM()[3827] << std::endl;
+    std::cout << "memory 3827: " << (int) z80_system.getRAM()->readWord(3827) << std::endl;
     return 0;
 }
