@@ -255,6 +255,11 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             reg = this->getLeastSignificantRegister(operand);
             this->ram->write(IY+d, this->regs[reg]);
         }
+        else if(operand == 0b00100010) // LD (nn),IY
+        {
+            nn = this->getWordWithPC();
+            this->ram->writeWord(nn, this->IY);
+        }
     }
     else if(opcode == 0b00110110) // LD(HL),n
     {
@@ -399,7 +404,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         this->ram->writeWord(nn, this->getRegPair(HL_REG_PAIR));
     }
 
-    // Last instruction LD (nn),IX
+    // Last instruction LD (nn),IY
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;

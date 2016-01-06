@@ -8,7 +8,8 @@ using namespace std;
 
 int main()
 {
-    uint8_t buf[100] = {0xdd, 0x21, 0x82, 0x53, 0xdd, 0x22, 0x20, 0x0f};
+    // Machine instructions for the Z80 assemblers
+    uint8_t buf[100] = {0xfd, 0x21, 0x82, 0x53, 0xfd, 0x22, 0x20, 0x0f};
     PNPZ80Instance z80_system;
 
     // Attach the audio hardware
