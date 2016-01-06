@@ -207,13 +207,13 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             nn = this->getWordWithPC();
             this->ram->writeWord(nn, this->getIX());
         }
-        else if (reg == 0b110) // LD (IX+d), r
+        else if (reg == 0b110) // LD (IX+d),r
         {
             d = this->ram->read(++PC);
             reg = this->getLeastSignificantRegister(operand);
             this->ram->write(IX+d, this->regs[reg]);
         }
-        else // LD r,(IX+d)
+        else if(b67 == 0b01 && b345 != 0b110 && b012 == 0b110) // LD r,(IX+d)
         {
             d = this->ram->read(++PC);
             this->regs[reg] = this->ram->read(IX+d);
@@ -228,6 +228,9 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     else if(opcode == 0b11111101)
     {
         operand = this->ram->read(++PC);
+        // Bit split the óperand
+        b_split(operand, &b67, &b345, &b012, &b45, &b0123);
+
         if (operand == 0b00110110) // LD (IY+d), n
         {
             d = this->ram->read(++PC);
@@ -244,7 +247,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             nn = this->getWordWithPC();
             this->IY = this->ram->readWord(nn);
         }
-        else // LD (IY+d),r
+        else if(b67 == 0b01 && b345 == 0b110 && b0123 != 0b110)// LD (IY+d),r
         {
             d = this->ram->read(++PC);
             reg = this->getLeastSignificantRegister(operand);
