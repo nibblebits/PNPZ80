@@ -77,7 +77,7 @@ void PNPZ80Instance::process()
 
 bool PNPZ80Instance::registerIOAddress(uint8_t addr, PNPZ80Hardware* hardware)
 {
-    if (this->io_addresses[addr] == 0)
+    if (this->io_addresses[addr] == NULL)
     {
         this->io_addresses[addr] = hardware;
         std::cout << hardware->getName() << ":" << hardware->getVersion() << " has registered ownership of I/O address: " << (int)addr << std::endl;

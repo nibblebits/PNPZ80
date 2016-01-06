@@ -28,28 +28,29 @@ EXPORTS
     _ZN14PNPZ80InstanceD2Ev @27
     _ZN15PNPZ80Simulator10getRegPairEh @28
     _ZN15PNPZ80Simulator10setRegPairEht @29
-    _ZN15PNPZ80Simulator13getWordWithPCEv @30
-    _ZN15PNPZ80Simulator13processOpcodeEv @31
-    _ZN15PNPZ80Simulator15getMainRegisterEh @32
-    _ZN15PNPZ80Simulator15readWordFromRAMEt @33
-    _ZN15PNPZ80Simulator26getMostSignificantRegisterEh @34
-    _ZN15PNPZ80Simulator27getLeastSignificantRegisterEh @35
-    _ZN15PNPZ80Simulator4initEv @36
-    _ZN15PNPZ80Simulator5getBCEv @37
-    _ZN15PNPZ80Simulator5getDEEv @38
-    _ZN15PNPZ80Simulator5getHLEv @39
-    _ZN15PNPZ80Simulator5getIXEv @40
-    _ZN15PNPZ80Simulator5getIYEv @41
-    _ZN15PNPZ80Simulator7b_splitEhPhS0_S0_S0_S0_ @42
-    _ZN15PNPZ80Simulator7emulateEj @43
-    _ZN15PNPZ80SimulatorC1EPc @44
-    _ZN15PNPZ80SimulatorC2EPc @45
-    _ZN15PNPZ80SimulatorD0Ev @46
-    _ZN15PNPZ80SimulatorD1Ev @47
-    _ZN15PNPZ80SimulatorD2Ev @48
-    _ZTI14PNPZ80Hardware @49 DATA
-    _ZTI14PNPZ80Instance @50 DATA
-    _ZTI15PNPZ80Simulator @51 DATA
-    _ZTV14PNPZ80Hardware @52 DATA
-    _ZTV14PNPZ80Instance @53 DATA
-    _ZTV15PNPZ80Simulator @54 DATA
+    _ZN15PNPZ80Simulator12setWordInRamEtt @30
+    _ZN15PNPZ80Simulator13getWordWithPCEv @31
+    _ZN15PNPZ80Simulator13processOpcodeEv @32
+    _ZN15PNPZ80Simulator15getMainRegisterEh @33
+    _ZN15PNPZ80Simulator15readWordFromRAMEt @34
+    _ZN15PNPZ80Simulator26getMostSignificantRegisterEh @35
+    _ZN15PNPZ80Simulator27getLeastSignificantRegisterEh @36
+    _ZN15PNPZ80Simulator4initEv @37
+    _ZN15PNPZ80Simulator5getBCEv @38
+    _ZN15PNPZ80Simulator5getDEEv @39
+    _ZN15PNPZ80Simulator5getHLEv @40
+    _ZN15PNPZ80Simulator5getIXEv @41
+    _ZN15PNPZ80Simulator5getIYEv @42
+    _ZN15PNPZ80Simulator7b_splitEhPhS0_S0_S0_S0_ @43
+    _ZN15PNPZ80Simulator7emulateEj @44
+    _ZN15PNPZ80SimulatorC1EPc @45
+    _ZN15PNPZ80SimulatorC2EPc @46
+    _ZN15PNPZ80SimulatorD0Ev @47
+    _ZN15PNPZ80SimulatorD1Ev @48
+    _ZN15PNPZ80SimulatorD2Ev @49
+    _ZTI14PNPZ80Hardware @50 DATA
+    _ZTI14PNPZ80Instance @51 DATA
+    _ZTI15PNPZ80Simulator @52 DATA
+    _ZTV14PNPZ80Hardware @53 DATA
+    _ZTV14PNPZ80Instance @54 DATA
+    _ZTV15PNPZ80Simulator @55 DATA

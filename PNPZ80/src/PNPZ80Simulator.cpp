@@ -1,6 +1,5 @@
 #include "PNPZ80Simulator.h"
 #include <iostream>
-
 PNPZ80Simulator::PNPZ80Simulator(char* ram)
 {
     this->ram = ram;
@@ -133,6 +132,12 @@ uint16_t PNPZ80Simulator::readWordFromRAM(uint16_t address)
     return (this->ram[address+1] << 8 | (this->ram[address] & 0xff));
 }
 
+void PNPZ80Simulator::setWordInRam(uint16_t address, uint16_t word)
+{
+    this->ram[address] = word;
+    this->ram[address+1] = (word >> 8);
+}
+
 uint16_t PNPZ80Simulator::getWordWithPC()
 {
     uint8_t n;
@@ -158,7 +163,6 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     uint8_t b345;
     uint8_t d;
     uint8_t n;
-    uint8_t n2;
     uint8_t reg;
     uint8_t operand;
     uint16_t nn;
@@ -380,7 +384,13 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         this->regs[L_REG] = this->ram[nn];
         this->regs[H_REG] = this->ram[nn+1];
     }
-    // Last instruction LD IY,(nn)
+    else if(opcode == 0b00100010) // LD (nn),HL
+    {
+        nn = this->getWordWithPC();
+        this->setWordInRam(nn, this->getRegPair(HL_REG_PAIR));
+    }
+
+    // Last instruction LD (nn),HL
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;

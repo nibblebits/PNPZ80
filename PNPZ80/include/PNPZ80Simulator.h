@@ -26,6 +26,7 @@ class DLL_EXPORT PNPZ80Simulator
         uint8_t getLeastSignificantRegister(uint8_t in);
         uint16_t getWordWithPC();
         uint16_t readWordFromRAM(uint16_t address);
+        void setWordInRam(uint16_t address, uint16_t word);
         void b_split(uint8_t byte, uint8_t* b67, uint8_t* b345, uint8_t* b012, uint8_t* b45, uint8_t* b0123);
         char* ram;
 
