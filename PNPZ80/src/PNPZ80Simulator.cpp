@@ -268,6 +268,10 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             nn = this->getWordWithPC();
             this->ram->writeWord(nn, this->IY);
         }
+        else if(operand == 0b11111001) // LD SP,IY
+        {
+            this->SP = this->IY;
+        }
     }
     else if(opcode == 0b00110110) // LD(HL),n
     {
@@ -416,7 +420,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         this->SP = this->getHL();
     }
 
-    // Last instruction: LD SP,IX
+    // Last instruction: LD SP,IY
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
