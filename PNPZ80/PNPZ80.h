@@ -25,12 +25,26 @@ enum
 // Register pair ids
 enum
 {
-    BC_REG_PAIR = 0b00,
-    DE_REG_PAIR = 0b01,
-    HL_REG_PAIR = 0b10,
-    SP_REG_PAIR = 0b11
+    BC_REG_PAIR_DD = 0b00,
+    DE_REG_PAIR_DD = 0b01,
+    HL_REG_PAIR_DD = 0b10,
+    SP_REG_PAIR_DD = 0b11
 };
 
+// qq register pair ids
+enum
+{
+    BC_REG_PAIR_QQ = 0b00,
+    DE_REG_PAIR_QQ = 0b01,
+    HL_REG_PAIR_QQ = 0b10,
+    AF_REG_PAIR_QQ = 0b11
+};
+
+enum
+{
+    PAIR_TYPE_DD = 0,
+    PAIR_TYPE_QQ = 1
+};
 // Flags
 enum
 {

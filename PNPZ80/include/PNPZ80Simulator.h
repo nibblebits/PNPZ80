@@ -20,8 +20,10 @@ class DLL_EXPORT PNPZ80Simulator
         uint16_t getDE();
         uint16_t getIX();
         uint16_t getIY();
-        void setRegPair(uint8_t id, uint16_t val);
-        uint16_t getRegPair(uint8_t id);
+        uint16_t getAF();
+
+        void setRegPair(uint8_t id, uint16_t val, uint8_t pair_type);
+        uint16_t getRegPair(uint8_t id, uint8_t pair_type);
         uint8_t getMainRegister(uint8_t id);
     protected:
     private:
@@ -29,6 +31,9 @@ class DLL_EXPORT PNPZ80Simulator
         uint8_t getLeastSignificantRegister(uint8_t in);
         uint16_t getWordWithPC();
         void b_split(uint8_t byte, uint8_t* b67, uint8_t* b345, uint8_t* b012, uint8_t* b567, uint8_t* b45, uint8_t* b0123);
+        void push(uint16_t value);
+        uint16_t pop();
+
         PNPZ80Ram* ram;
 
         // The regs pointer will point to either the main registers or the alternative registers
