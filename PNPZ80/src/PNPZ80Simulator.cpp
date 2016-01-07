@@ -695,7 +695,21 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         this->setMainAF(this->getAlternateAF());
         this->setAlternateAF(nn);
     }
-    // Last instruction: EX AF,AF'
+    else if(opcode == 0b11011000) // EXX
+    {
+        nn = this->getMainBC();
+        this->setMainBC(this->getAlternateBC());
+        this->setAlternateBC(nn);
+
+        nn = this->getMainDE();
+        this->setMainDE(this->getAlternateDE());
+        this->setAlternateDE(nn);
+
+        nn = this->getMainHL();
+        this->setMainHL(this->getAlternateHL());
+        this->setAlternateHL(nn);
+    }
+    // Last instruction: EXX
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
