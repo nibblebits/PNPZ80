@@ -64,51 +64,87 @@ uint16_t PNPZ80Simulator::getAF()
     return (((uint16_t) this->regs[A_REG] << 8) | this->regs[F_REG]);
 }
 
+uint16_t PNPZ80Simulator::getSP()
+{
+   return this->SP;
+}
+
+void PNPZ80Simulator::setHL(uint16_t val)
+{
+    this->regs[H_REG] = ((uint16_t) val >> 8);
+    this->regs[L_REG] = ((uint16_t) val & 0xff);
+}
+void PNPZ80Simulator::setBC(uint16_t val)
+{
+    this->regs[B_REG] = ((uint16_t) val >> 8);
+    this->regs[C_REG] = ((uint16_t) val & 0xff);
+}
+
+void PNPZ80Simulator::setDE(uint16_t val)
+{
+    this->regs[D_REG] = ((uint16_t) val >> 8);
+    this->regs[E_REG] = ((uint16_t) val & 0xff);
+}
+
+void PNPZ80Simulator::setIX(uint16_t val)
+{
+    this->IX = val;
+}
+
+void PNPZ80Simulator::setIY(uint16_t val)
+{
+    this->IY = val;
+}
+
+void PNPZ80Simulator::setAF(uint16_t val)
+{
+    this->regs[A_REG] = ((uint16_t) val >> 8);
+    this->regs[F_REG] = ((uint16_t) val & 0xff);
+}
+
+void PNPZ80Simulator::setSP(uint16_t val)
+{
+    this->SP = val;
+}
+
 void PNPZ80Simulator::setRegPair(uint8_t id, uint16_t val, uint8_t pair_type)
 {
     if (pair_type == PAIR_TYPE_DD)
     {
         if (id == BC_REG_PAIR_DD)
         {
-            this->regs[B_REG] = ((uint16_t) val >> 8);
-            this->regs[C_REG] = ((uint16_t) val & 0xff);
+            this->setBC(val);
         }
         else if(id == DE_REG_PAIR_DD)
         {
-            this->regs[D_REG] = ((uint16_t) val >> 8);
-            this->regs[E_REG] = ((uint16_t) val & 0xff);
+           this->setDE(val);
         }
         else if(id == HL_REG_PAIR_DD)
         {
-            this->regs[H_REG] = ((uint16_t) val >> 8);
-            this->regs[L_REG] = ((uint16_t) val & 0xff);
+            this->setHL(val);
         }
         else if(id == SP_REG_PAIR_DD)
         {
-            this->SP = val;
+           this->setSP(val);
         }
     }
     else if(pair_type == PAIR_TYPE_QQ)
     {
         if (id == BC_REG_PAIR_QQ)
         {
-            this->regs[B_REG] = ((uint16_t) val >> 8);
-            this->regs[C_REG] = ((uint16_t) val & 0xff);
+            this->setBC(val);
         }
         else if(id == DE_REG_PAIR_QQ)
         {
-            this->regs[D_REG] = ((uint16_t) val >> 8);
-            this->regs[E_REG] = ((uint16_t) val & 0xff);
+            this->setDE(val);
         }
         else if(id == HL_REG_PAIR_QQ)
         {
-            this->regs[H_REG] = ((uint16_t) val >> 8);
-            this->regs[L_REG] = ((uint16_t) val & 0xff);
+            this->setHL(val);
         }
         else if(id == AF_REG_PAIR_QQ)
         {
-            this->regs[A_REG] = ((uint16_t) val >> 8);
-            this->regs[F_REG] = ((uint16_t) val & 0xff);
+            this->setAF(val);
         }
     }
 }
@@ -510,7 +546,13 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     {
         this->setRegPair(b45, this->pop(), PAIR_TYPE_QQ);
     }
-    // Last instruction: POP IY
+    else if(opcode == 0b11101011) // EX DE, HL
+    {
+        nn = this->getDE();
+        this->setDE(this->getHL());
+        this->setHL(nn);
+    }
+    // Last instruction: EX DE, HL
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;

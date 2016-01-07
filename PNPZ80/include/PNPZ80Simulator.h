@@ -21,6 +21,15 @@ class DLL_EXPORT PNPZ80Simulator
         uint16_t getIX();
         uint16_t getIY();
         uint16_t getAF();
+        uint16_t getSP();
+
+        void setHL(uint16_t val);
+        void setBC(uint16_t val);
+        void setDE(uint16_t val);
+        void setIX(uint16_t val);
+        void setIY(uint16_t val);
+        void setAF(uint16_t val);
+        void setSP(uint16_t val);
 
         void setRegPair(uint8_t id, uint16_t val, uint8_t pair_type);
         uint16_t getRegPair(uint8_t id, uint8_t pair_type);
