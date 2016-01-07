@@ -69,6 +69,81 @@ uint16_t PNPZ80Simulator::getSP()
    return this->SP;
 }
 
+uint16_t PNPZ80Simulator::getMainHL()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    nn = this->getHL();
+    this->regs = regs_old;
+    return nn;
+}
+uint16_t PNPZ80Simulator::getMainBC()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    nn = this->getBC();
+    this->regs = regs_old;
+    return nn;
+}
+uint16_t PNPZ80Simulator::getMainDE()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    nn = this->getDE();
+    this->regs = regs_old;
+    return nn;
+}
+uint16_t PNPZ80Simulator::getMainAF()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    nn = this->getAF();
+    this->regs = regs_old;
+    return nn;
+}
+
+uint16_t PNPZ80Simulator::getAlternateHL()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    nn = this->getHL();
+    this->regs = regs_old;
+    return nn;
+}
+uint16_t PNPZ80Simulator::getAlternateBC()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    nn = this->getBC();
+    this->regs = regs_old;
+    return nn;
+}
+uint16_t PNPZ80Simulator::getAlternateDE()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    nn = this->getDE();
+    this->regs = regs_old;
+    return nn;
+}
+
+uint16_t PNPZ80Simulator::getAlternateAF()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    nn = this->getAF();
+    this->regs = regs_old;
+    return nn;
+}
+
 void PNPZ80Simulator::setHL(uint16_t val)
 {
     this->regs[H_REG] = ((uint16_t) val >> 8);
@@ -105,6 +180,68 @@ void PNPZ80Simulator::setAF(uint16_t val)
 void PNPZ80Simulator::setSP(uint16_t val)
 {
     this->SP = val;
+}
+
+void PNPZ80Simulator::setMainHL(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    this->setHL(val);
+    this->regs = regs_old;
+}
+void PNPZ80Simulator::setMainBC(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    this->setBC(val);
+    this->regs = regs_old;
+}
+void PNPZ80Simulator::setMainDE(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    this->setDE(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setMainAF(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    this->setAF(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setAlternateHL(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    this->setHL(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setAlternateBC(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    this->setBC(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setAlternateDE(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    this->setDE(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setAlternateAF(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    this->setAF(val);
+    this->regs = regs_old;
 }
 
 void PNPZ80Simulator::setRegPair(uint8_t id, uint16_t val, uint8_t pair_type)
@@ -546,13 +683,19 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     {
         this->setRegPair(b45, this->pop(), PAIR_TYPE_QQ);
     }
-    else if(opcode == 0b11101011) // EX DE, HL
+    else if(opcode == 0b11101011) // EX DE,HL
     {
         nn = this->getDE();
         this->setDE(this->getHL());
         this->setHL(nn);
     }
-    // Last instruction: EX DE, HL
+    else if(opcode == 0b00001000) // EX AF,AF'
+    {
+        nn = this->getMainAF();
+        this->setMainAF(this->getAlternateAF());
+        this->setAlternateAF(nn);
+    }
+    // Last instruction: EX AF,AF'
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
