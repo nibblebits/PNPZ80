@@ -205,7 +205,10 @@ void PNPZ80Simulator::push(uint16_t value)
 
 uint16_t PNPZ80Simulator::pop()
 {
-    // To be implemented
+    uint16_t reg;
+    reg = this->ram->readWord(this->SP);
+    this->SP+=2;
+    return reg;
 }
 
 void PNPZ80Simulator::processOpcode()
@@ -495,7 +498,11 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     {
         this->push(this->getRegPair(b45, PAIR_TYPE_QQ));
     }
-    // Last instruction: PUSH IY
+    else if(b67 == 0b11 && b0123 == 0b0001) // POP qq
+    {
+        this->setRegPair(b45, this->pop(), PAIR_TYPE_QQ);
+    }
+    // Last instruction: POP qq
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
