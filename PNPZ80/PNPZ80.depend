@@ -20,7 +20,7 @@
 	"PNPZ80.h"
 	"PNPZ80Simulator.h"
 
-1452133456 h:\c++\pnpz80\pnpz80\include\pnpz80simulator.h
+1452134856 h:\c++\pnpz80\pnpz80\include\pnpz80simulator.h
 	"PNPZ80.h"
 	"PNPZ80Ram.h"
 
@@ -30,7 +30,7 @@
 	<iostream>
 	<stdio.h>
 
-1452129650 source:h:\c++\pnpz80\pnpz80\src\pnpz80simulator.cpp
+1452135483 source:h:\c++\pnpz80\pnpz80\src\pnpz80simulator.cpp
 	"PNPZ80Simulator.h"
 	<iostream>
 
@@ -39,4 +39,8 @@
 
 1452045856 h:\c++\pnpz80\pnpz80\include\pnpz80ram.h
 	"PNPZ80.h"
+
+1452181365 h:\c++\pnpz80\pnpz80\include\pnpz80.h
+	<windows.h>
+	<stdint.h>
 

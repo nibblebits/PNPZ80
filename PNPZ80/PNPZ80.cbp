@@ -47,10 +47,12 @@
 		<Unit filename="PNPZ80.h" />
 		<Unit filename="include/PNPZ80Hardware.h" />
 		<Unit filename="include/PNPZ80Instance.h" />
+		<Unit filename="include/PNPZ80Ram.h" />
 		<Unit filename="include/PNPZ80Simulator.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/PNPZ80Hardware.cpp" />
 		<Unit filename="src/PNPZ80Instance.cpp" />
+		<Unit filename="src/PNPZ80Ram.cpp" />
 		<Unit filename="src/PNPZ80Simulator.cpp" />
 		<Extensions>
 			<code_completion />

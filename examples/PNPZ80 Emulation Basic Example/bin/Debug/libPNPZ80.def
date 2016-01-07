@@ -26,42 +26,69 @@ EXPORTS
     _ZN14PNPZ80InstanceD0Ev @25
     _ZN14PNPZ80InstanceD1Ev @26
     _ZN14PNPZ80InstanceD2Ev @27
-    _ZN15PNPZ80Simulator10getRegPairEh @28
-    _ZN15PNPZ80Simulator10setRegPairEht @29
+    _ZN15PNPZ80Simulator10getRegPairEhh @28
+    _ZN15PNPZ80Simulator10setRegPairEhth @29
     _ZN15PNPZ80Simulator13getWordWithPCEv @30
     _ZN15PNPZ80Simulator13processOpcodeEv @31
-    _ZN15PNPZ80Simulator15getMainRegisterEh @32
-    _ZN15PNPZ80Simulator26getMostSignificantRegisterEh @33
-    _ZN15PNPZ80Simulator27getLeastSignificantRegisterEh @34
-    _ZN15PNPZ80Simulator4initEv @35
-    _ZN15PNPZ80Simulator5getBCEv @36
-    _ZN15PNPZ80Simulator5getDEEv @37
-    _ZN15PNPZ80Simulator5getHLEv @38
-    _ZN15PNPZ80Simulator5getIXEv @39
-    _ZN15PNPZ80Simulator5getIYEv @40
-    _ZN15PNPZ80Simulator7b_splitEhPhS0_S0_S0_S0_S0_ @41
-    _ZN15PNPZ80Simulator7emulateEj @42
-    _ZN15PNPZ80SimulatorC1EP9PNPZ80Ram @43
-    _ZN15PNPZ80SimulatorC2EP9PNPZ80Ram @44
-    _ZN15PNPZ80SimulatorD0Ev @45
-    _ZN15PNPZ80SimulatorD1Ev @46
-    _ZN15PNPZ80SimulatorD2Ev @47
-    _ZN9PNPZ80Ram12doesOverflowEt @48
-    _ZN9PNPZ80Ram4readEt @49
-    _ZN9PNPZ80Ram5writeEth @50
-    _ZN9PNPZ80Ram8readWordEt @51
-    _ZN9PNPZ80Ram9getBufferEv @52
-    _ZN9PNPZ80Ram9writeWordEtt @53
-    _ZN9PNPZ80RamC1Et @54
-    _ZN9PNPZ80RamC2Et @55
-    _ZN9PNPZ80RamD0Ev @56
-    _ZN9PNPZ80RamD1Ev @57
-    _ZN9PNPZ80RamD2Ev @58
-    _ZTI14PNPZ80Hardware @59 DATA
-    _ZTI14PNPZ80Instance @60 DATA
-    _ZTI15PNPZ80Simulator @61 DATA
-    _ZTI9PNPZ80Ram @62 DATA
-    _ZTV14PNPZ80Hardware @63 DATA
-    _ZTV14PNPZ80Instance @64 DATA
-    _ZTV15PNPZ80Simulator @65 DATA
-    _ZTV9PNPZ80Ram @66 DATA
+    _ZN15PNPZ80Simulator14getAlternateAFEv @32
+    _ZN15PNPZ80Simulator14getAlternateBCEv @33
+    _ZN15PNPZ80Simulator14getAlternateDEEv @34
+    _ZN15PNPZ80Simulator14getAlternateHLEv @35
+    _ZN15PNPZ80Simulator14setAlternateAFEt @36
+    _ZN15PNPZ80Simulator14setAlternateBCEt @37
+    _ZN15PNPZ80Simulator14setAlternateDEEt @38
+    _ZN15PNPZ80Simulator14setAlternateHLEt @39
+    _ZN15PNPZ80Simulator15getMainRegisterEh @40
+    _ZN15PNPZ80Simulator26getMostSignificantRegisterEh @41
+    _ZN15PNPZ80Simulator27getLeastSignificantRegisterEh @42
+    _ZN15PNPZ80Simulator3popEv @43
+    _ZN15PNPZ80Simulator4initEv @44
+    _ZN15PNPZ80Simulator4pushEt @45
+    _ZN15PNPZ80Simulator5getAFEv @46
+    _ZN15PNPZ80Simulator5getBCEv @47
+    _ZN15PNPZ80Simulator5getDEEv @48
+    _ZN15PNPZ80Simulator5getHLEv @49
+    _ZN15PNPZ80Simulator5getIXEv @50
+    _ZN15PNPZ80Simulator5getIYEv @51
+    _ZN15PNPZ80Simulator5getSPEv @52
+    _ZN15PNPZ80Simulator5setAFEt @53
+    _ZN15PNPZ80Simulator5setBCEt @54
+    _ZN15PNPZ80Simulator5setDEEt @55
+    _ZN15PNPZ80Simulator5setHLEt @56
+    _ZN15PNPZ80Simulator5setIXEt @57
+    _ZN15PNPZ80Simulator5setIYEt @58
+    _ZN15PNPZ80Simulator5setSPEt @59
+    _ZN15PNPZ80Simulator7b_splitEhPhS0_S0_S0_S0_S0_ @60
+    _ZN15PNPZ80Simulator7emulateEj @61
+    _ZN15PNPZ80Simulator9getMainAFEv @62
+    _ZN15PNPZ80Simulator9getMainBCEv @63
+    _ZN15PNPZ80Simulator9getMainDEEv @64
+    _ZN15PNPZ80Simulator9getMainHLEv @65
+    _ZN15PNPZ80Simulator9setMainAFEt @66
+    _ZN15PNPZ80Simulator9setMainBCEt @67
+    _ZN15PNPZ80Simulator9setMainDEEt @68
+    _ZN15PNPZ80Simulator9setMainHLEt @69
+    _ZN15PNPZ80SimulatorC1EP9PNPZ80Ram @70
+    _ZN15PNPZ80SimulatorC2EP9PNPZ80Ram @71
+    _ZN15PNPZ80SimulatorD0Ev @72
+    _ZN15PNPZ80SimulatorD1Ev @73
+    _ZN15PNPZ80SimulatorD2Ev @74
+    _ZN9PNPZ80Ram12doesOverflowEt @75
+    _ZN9PNPZ80Ram4readEt @76
+    _ZN9PNPZ80Ram5writeEth @77
+    _ZN9PNPZ80Ram8readWordEt @78
+    _ZN9PNPZ80Ram9getBufferEv @79
+    _ZN9PNPZ80Ram9writeWordEtt @80
+    _ZN9PNPZ80RamC1Et @81
+    _ZN9PNPZ80RamC2Et @82
+    _ZN9PNPZ80RamD0Ev @83
+    _ZN9PNPZ80RamD1Ev @84
+    _ZN9PNPZ80RamD2Ev @85
+    _ZTI14PNPZ80Hardware @86 DATA
+    _ZTI14PNPZ80Instance @87 DATA
+    _ZTI15PNPZ80Simulator @88 DATA
+    _ZTI9PNPZ80Ram @89 DATA
+    _ZTV14PNPZ80Hardware @90 DATA
+    _ZTV14PNPZ80Instance @91 DATA
+    _ZTV15PNPZ80Simulator @92 DATA
+    _ZTV9PNPZ80Ram @93 DATA

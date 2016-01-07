@@ -56,12 +56,7 @@ enum
     S_FLAG = 0b10000000
 };
 
-#ifdef BUILD_DLL
-    #define DLL_EXPORT __declspec(dllexport)
-#else
-    #define DLL_EXPORT __declspec(dllimport)
-#endif
-
+#define DLL_EXPORT __declspec(dllexport)
 
 #ifdef __cplusplus
 extern "C"

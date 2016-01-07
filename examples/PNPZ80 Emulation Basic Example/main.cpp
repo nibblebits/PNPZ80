@@ -9,13 +9,13 @@ using namespace std;
 int main()
 {
     // Machine instructions for the Z80 assemblers
-    uint8_t buf[100] = {0x31, 0x07, 0x10, 0x11, 0x33, 0x22, 0xd5};
+    uint8_t buf[100] = {0x31, 0x07, 0x10, 0x11, 0x33, 0x22, 0xd5, 0x11, 0x00, 0x00, 0xd1};
     PNPZ80Instance z80_system;
 
     // Attach the audio hardware
     z80_system.attachHardware(new PNPZ80Audio());
     z80_system.loadRAMFromBuffer(buf, 100);
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 5; i++)
         z80_system.process();
     std::cout << "A reg: " << (int)z80_system.getSimulator()->getMainRegister(A_REG) << std::endl;
     std::cout << "B reg:" << (int)z80_system.getSimulator()->getMainRegister(B_REG) << std::endl;
