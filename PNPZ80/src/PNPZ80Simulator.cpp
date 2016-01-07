@@ -299,6 +299,10 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         {
             this->push(this->IX);
         }
+        else if(operand == 0b11100001) // POP IX
+        {
+            this->IX = this->pop();
+        }
     }
     else if(opcode == 0b11111111) // LD r,(IY+d)
     {
@@ -502,7 +506,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     {
         this->setRegPair(b45, this->pop(), PAIR_TYPE_QQ);
     }
-    // Last instruction: POP qq
+    // Last instruction: POP IX
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
