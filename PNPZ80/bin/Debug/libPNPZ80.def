@@ -1,3 +1,0 @@
-EXPORTS
-    DllMain@12 @1
-    PNPZ80CreateInstance @2
