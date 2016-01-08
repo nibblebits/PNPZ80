@@ -1,7 +1,10 @@
+/* This source file is protected under the GPL License V3. Please view the file
+   called "COPYING" to view the license with your rights for this source file and the rest of the PNPZ80 project.
+   If the license in the file "COPYING" was not included in this distribution you may find it here: http://www.gnu.org/licenses/gpl.txt*/
+
 #include "PNPZ80Simulator.h"
 #include <iostream>
-
-PNPZ80Simulator::PNPZ80Simulator(char* ram)
+PNPZ80Simulator::PNPZ80Simulator(PNPZ80Ram* ram)
 {
     this->ram = ram;
     this->regs = this->m_regs;
@@ -31,6 +34,7 @@ void PNPZ80Simulator::init()
     this->IFF1 = true;
     this->IFF2 = true;
 }
+
 uint16_t PNPZ80Simulator::getHL()
 {
     return (((uint16_t)this->regs[H_REG] << 8) | this->regs[L_REG]);
@@ -55,45 +59,271 @@ uint16_t PNPZ80Simulator::getIY()
     return this->IY;
 }
 
-void PNPZ80Simulator::setRegPair(uint8_t id, uint16_t val)
+uint16_t PNPZ80Simulator::getAF()
 {
-    if (id == BC_REG_PAIR)
+    return (((uint16_t) this->regs[A_REG] << 8) | this->regs[F_REG]);
+}
+
+uint16_t PNPZ80Simulator::getSP()
+{
+   return this->SP;
+}
+
+uint16_t PNPZ80Simulator::getMainHL()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    nn = this->getHL();
+    this->regs = regs_old;
+    return nn;
+}
+uint16_t PNPZ80Simulator::getMainBC()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    nn = this->getBC();
+    this->regs = regs_old;
+    return nn;
+}
+uint16_t PNPZ80Simulator::getMainDE()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    nn = this->getDE();
+    this->regs = regs_old;
+    return nn;
+}
+uint16_t PNPZ80Simulator::getMainAF()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    nn = this->getAF();
+    this->regs = regs_old;
+    return nn;
+}
+
+uint16_t PNPZ80Simulator::getAlternateHL()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    nn = this->getHL();
+    this->regs = regs_old;
+    return nn;
+}
+uint16_t PNPZ80Simulator::getAlternateBC()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    nn = this->getBC();
+    this->regs = regs_old;
+    return nn;
+}
+uint16_t PNPZ80Simulator::getAlternateDE()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    nn = this->getDE();
+    this->regs = regs_old;
+    return nn;
+}
+
+uint16_t PNPZ80Simulator::getAlternateAF()
+{
+    uint16_t nn;
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    nn = this->getAF();
+    this->regs = regs_old;
+    return nn;
+}
+
+void PNPZ80Simulator::setHL(uint16_t val)
+{
+    this->regs[H_REG] = ((uint16_t) val >> 8);
+    this->regs[L_REG] = ((uint16_t) val & 0xff);
+}
+void PNPZ80Simulator::setBC(uint16_t val)
+{
+    this->regs[B_REG] = ((uint16_t) val >> 8);
+    this->regs[C_REG] = ((uint16_t) val & 0xff);
+}
+
+void PNPZ80Simulator::setDE(uint16_t val)
+{
+    this->regs[D_REG] = ((uint16_t) val >> 8);
+    this->regs[E_REG] = ((uint16_t) val & 0xff);
+}
+
+void PNPZ80Simulator::setIX(uint16_t val)
+{
+    this->IX = val;
+}
+
+void PNPZ80Simulator::setIY(uint16_t val)
+{
+    this->IY = val;
+}
+
+void PNPZ80Simulator::setAF(uint16_t val)
+{
+    this->regs[A_REG] = ((uint16_t) val >> 8);
+    this->regs[F_REG] = ((uint16_t) val & 0xff);
+}
+
+void PNPZ80Simulator::setSP(uint16_t val)
+{
+    this->SP = val;
+}
+
+void PNPZ80Simulator::setMainHL(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    this->setHL(val);
+    this->regs = regs_old;
+}
+void PNPZ80Simulator::setMainBC(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    this->setBC(val);
+    this->regs = regs_old;
+}
+void PNPZ80Simulator::setMainDE(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    this->setDE(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setMainAF(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->m_regs;
+    this->setAF(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setAlternateHL(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    this->setHL(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setAlternateBC(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    this->setBC(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setAlternateDE(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    this->setDE(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setAlternateAF(uint16_t val)
+{
+    uint8_t* regs_old = this->regs;
+    this->regs = this->a_regs;
+    this->setAF(val);
+    this->regs = regs_old;
+}
+
+void PNPZ80Simulator::setRegPair(uint8_t id, uint16_t val, uint8_t pair_type)
+{
+    if (pair_type == PAIR_TYPE_DD)
     {
-        this->regs[B_REG] = ((uint16_t) val >> 8);
-        this->regs[C_REG] = ((uint16_t) val & 0xff);
+        if (id == BC_REG_PAIR_DD)
+        {
+            this->setBC(val);
+        }
+        else if(id == DE_REG_PAIR_DD)
+        {
+           this->setDE(val);
+        }
+        else if(id == HL_REG_PAIR_DD)
+        {
+            this->setHL(val);
+        }
+        else if(id == SP_REG_PAIR_DD)
+        {
+           this->setSP(val);
+        }
     }
-    else if(id == DE_REG_PAIR)
+    else if(pair_type == PAIR_TYPE_QQ)
     {
-        this->regs[D_REG] = ((uint16_t) val >> 8);
-        this->regs[E_REG] = ((uint16_t) val & 0xff);
-    }
-    else if(id == HL_REG_PAIR)
-    {
-        this->regs[H_REG] = ((uint16_t) val >> 8);
-        this->regs[L_REG] = ((uint16_t) val & 0xff);
-    }
-    else if(id == SP_REG_PAIR)
-    {
-        this->SP = val;
+        if (id == BC_REG_PAIR_QQ)
+        {
+            this->setBC(val);
+        }
+        else if(id == DE_REG_PAIR_QQ)
+        {
+            this->setDE(val);
+        }
+        else if(id == HL_REG_PAIR_QQ)
+        {
+            this->setHL(val);
+        }
+        else if(id == AF_REG_PAIR_QQ)
+        {
+            this->setAF(val);
+        }
     }
 }
-uint16_t PNPZ80Simulator::getRegPair(uint8_t id)
+uint16_t PNPZ80Simulator::getRegPair(uint8_t id, uint8_t pair_type)
 {
-    if (id == BC_REG_PAIR)
+    if (pair_type == PAIR_TYPE_DD)
     {
-        return this->getBC();
+        if (id == BC_REG_PAIR_DD)
+        {
+            return this->getBC();
+        }
+        else if(id == DE_REG_PAIR_DD)
+        {
+            return this->getDE();
+        }
+        else if(id == HL_REG_PAIR_DD)
+        {
+            return this->getHL();
+        }
+        else if(id == SP_REG_PAIR_DD)
+        {
+            return this->SP;
+        }
     }
-    else if(id == DE_REG_PAIR)
+    else if(pair_type == PAIR_TYPE_QQ)
     {
-        return this->getDE();
-    }
-    else if(id == HL_REG_PAIR)
-    {
-        return this->getHL();
-    }
-    else if(id == SP_REG_PAIR)
-    {
-        return this->SP;
+        if (id == BC_REG_PAIR_QQ)
+        {
+            return this->getBC();
+        }
+        else if(id == DE_REG_PAIR_QQ)
+        {
+            return this->getDE();
+        }
+        else if(id == HL_REG_PAIR_QQ)
+        {
+            return this->getHL();
+        }
+        else if(id == AF_REG_PAIR_QQ)
+        {
+            return this->getAF();
+        }
     }
 
     return 0;
@@ -101,7 +331,7 @@ uint16_t PNPZ80Simulator::getRegPair(uint8_t id)
 
 uint8_t PNPZ80Simulator::getMainRegister(uint8_t id)
 {
-    return this->regs[id];
+    return this->m_regs[id];
 }
 
 uint8_t PNPZ80Simulator::getMostSignificantRegister(uint8_t in)
@@ -114,20 +344,70 @@ uint8_t PNPZ80Simulator::getLeastSignificantRegister(uint8_t in)
     return (in & 0b00000111);
 }
 
-void PNPZ80Simulator::processOpcode()
+void PNPZ80Simulator::b_split(uint8_t byte, uint8_t* b67, uint8_t* b345, uint8_t* b012, uint8_t* b567, uint8_t* b45, uint8_t* b0123)
 {
-    uint8_t opcode = ram[PC];
-    uint8_t b67 = opcode >> 6;
-    uint8_t b45 = (opcode >> 4) & 0b00000011;
-    uint8_t b012 = (opcode & 0b00000111);
-    uint8_t b0123 = (opcode & 0b00001111);
-    uint8_t b345 = (opcode & 0b00111000) >> 3;
-    uint8_t d;
+    if (b67 != NULL)
+        *b67 = byte >> 6;
+    if (b345 != NULL)
+        *b345 = (byte & 0b00111000) >> 3;
+    if (b012 != NULL)
+        *b012 = (byte & 0b00000111);
+
+    if (b567 != NULL)
+        *b567 = (byte & 0b11100000) >> 5;
+    if (b45 != NULL)
+        *b45 = (byte >> 4) & 0b00000011;
+    if (b0123 != NULL)
+        *b0123 = (byte & 0b00001111);
+}
+
+uint16_t PNPZ80Simulator::getWordWithPC()
+{
     uint8_t n;
     uint8_t n2;
+    n = this->ram->read(++PC);
+    n2 = this->ram->read(++PC);
+    return (n2 << 8) | (n & 0xff);
+}
+
+void PNPZ80Simulator::push(uint16_t value)
+{
+    this->SP-=2;
+    this->ram->writeWord(this->SP, value);
+}
+
+uint16_t PNPZ80Simulator::pop()
+{
+    uint16_t reg;
+    reg = this->ram->readWord(this->SP);
+    this->SP+=2;
+    return reg;
+}
+
+void PNPZ80Simulator::processOpcode()
+{
+    uint8_t opcode = this->ram->read(PC);
+    emulate(opcode);
+    PC++;
+}
+
+void PNPZ80Simulator::emulate(uint32_t opcode)
+{
+    uint8_t b67;
+    uint8_t b567;
+    uint8_t b45;
+    uint8_t b012;
+    uint8_t b0123;
+    uint8_t b345;
+    uint8_t d;
+    uint8_t n;
     uint8_t reg;
     uint8_t operand;
     uint16_t nn;
+    uint16_t result;
+
+    // Split the bits of the opcode and store them in the bit variables
+    b_split(opcode, &b67, &b345, &b012, &b567, &b45, &b0123);
 
     if (opcode == 0) // NOP
     {
@@ -139,116 +419,156 @@ void PNPZ80Simulator::processOpcode()
     }
     else if(b67 == 0b00 && b345 != 0b110 && b012 == 0b110) // LD r,n
     {
-        this->regs[b345] = this->ram[++PC];
+        this->regs[b345] = this->ram->read(++PC);
     }
     else if(b67 == 0b01 && b345 != 0b110 && b012 == 0b110) // LD r,(HL)
     {
-        this->regs[b345] = this->ram[this->getHL()];
+        this->regs[b345] = this->ram->read(this->getHL());
     }
     else if(opcode == 0b11011101)
     {
-        operand = this->ram[++PC];
-        reg = this->getMostSignificantRegister(operand);
+        operand = this->ram->read(++PC);
+
+        // Bit split the óperand
+        b_split(operand, &b67, &b345, &b012, &b567, &b45, &b0123);
+
         if (operand == 0b00110110) // LD (IX+d),n
         {
-            d = this->ram[++PC];
-            n = this->ram[++PC];
-            this->ram[IX+d] = n;
+            d = this->ram->read(++PC);
+            n = this->ram->read(++PC);
+            this->ram->write(IX+d, n);
         }
         else if(operand == 0b00100001) // LD IX, nn
         {
-            n = this->ram[++PC];
-            n2 = this->ram[++PC];
-            // Little endian so sort it to big endian
-            nn = (n2 << 8) | (n & 0xff);
+            nn = this->getWordWithPC();
             this->IX = nn;
         }
-        else if (reg == 0b110) // LD (IX+d), r
+        else if(operand == 0b00101010) // LD IX,(nn)
         {
-            d = this->ram[++PC];
-            reg = this->getLeastSignificantRegister(operand);
-            this->ram[IX+d] = this->regs[reg];
+            nn = this->getWordWithPC();
+            result = this->ram->readWord(nn);
+            this->IX = result;
         }
-        else // LD r,(IX+d)
+        else if(operand == 0b00100010) // LD (nn),IX
         {
-            d = this->ram[++PC];
-            this->regs[reg] = this->ram[IX+d];
+            nn = this->getWordWithPC();
+            this->ram->writeWord(nn, this->getIX());
+        }
+        else if (b67 == 0b01 && b345 == 0b110 && b012 != 0b110) // LD (IX+d),r
+        {
+            d = this->ram->read(++PC);
+            this->ram->write(IX+d, this->regs[b012]);
+        }
+        else if(b67 == 0b01 && b345 != 0b110 && b012 == 0b110) // LD r,(IX+d)
+        {
+            d = this->ram->read(++PC);
+            this->regs[b345] = this->ram->read(IX+d);
+        }
+        else if(operand == 0b11111001) // LD SP,IX
+        {
+            this->SP = this->IX;
+        }
+        else if(operand == 0b11100101) // PUSH IX
+        {
+            this->push(this->IX);
+        }
+        else if(operand == 0b11100001) // POP IX
+        {
+            this->IX = this->pop();
+        }
+        else if(operand == 0b11111101) // POP IY
+        {
+            this->IY = this->pop();
         }
     }
     else if(opcode == 0b11111111) // LD r,(IY+d)
     {
-        reg = this->getMostSignificantRegister(this->ram[++PC]);
-        d = this->ram[++PC];
-        this->regs[reg] = this->ram[IY+d];
+        reg = this->getMostSignificantRegister(this->ram->read(++PC));
+        d = this->ram->read(++PC);
+        this->regs[reg] = this->ram->read(IY+d);
     }
     else if(opcode == 0b11111101)
     {
-        operand = this->ram[++PC];
+        operand = this->ram->read(++PC);
+        // Bit split the óperand
+        b_split(operand, &b67, &b345, &b012, &b567, &b45, &b0123);
+
         if (operand == 0b00110110) // LD (IY+d), n
         {
-            d = this->ram[++PC];
-            n = this->ram[++PC];
-            this->ram[IY+d] = n;
+            d = this->ram->read(++PC);
+            n = this->ram->read(++PC);
+            this->ram->write(IY+d, n);
         }
         else if(operand == 0b00100001) // LD IY, nn
         {
-            n = this->ram[++PC];
-            n2 = this->ram[++PC];
-            // Little endian so sort it to big endian
-            nn = (n2 << 8) | (n & 0xff);
+            nn = this->getWordWithPC();
             this->IY = nn;
         }
-        else // LD (IY+d),r
+        else if(operand == 0b00101010) // LD IY,(nn)
         {
-            d = this->ram[++PC];
+            nn = this->getWordWithPC();
+            this->IY = this->ram->readWord(nn);
+        }
+        else if(b67 == 0b01 && b345 == 0b110 && b0123 != 0b110)// LD (IY+d),r
+        {
+            d = this->ram->read(++PC);
             reg = this->getLeastSignificantRegister(operand);
-            this->ram[IY+d] = this->regs[reg];
+            this->ram->write(IY+d, this->regs[reg]);
+        }
+        else if(operand == 0b00100010) // LD (nn),IY
+        {
+            nn = this->getWordWithPC();
+            this->ram->writeWord(nn, this->IY);
+        }
+        else if(operand == 0b11111001) // LD SP,IY
+        {
+            this->SP = this->IY;
+        }
+        else if(operand == 0b11100101) // PUSH IY
+        {
+            this->push(this->IY);
         }
     }
     else if(opcode == 0b00110110) // LD(HL),n
     {
-        n = this->ram[++PC];
-        this->ram[this->getHL()] = n;
+        n = this->ram->read(++PC);
+        this->ram->write(this->getHL(), n);
     }
     else if(b67 == 0b01 && b345 == 0b110 && b012 != 0b110) // LD (HL), r
     {
-        this->ram[this->getHL()] = this->regs[b012];
+        this->ram->write(this->getHL(), this->regs[b012]);
     }
     else if(opcode == 0b00001010) // LD A,(BC)
     {
-        this->regs[A_REG] = this->ram[this->getBC()];
+        this->regs[A_REG] = this->ram->read(this->getBC());
     }
     else if(opcode == 0b00011010) // LD A,(DE)
     {
-        this->regs[A_REG] = this->ram[this->getDE()];
+        this->regs[A_REG] = this->ram->read(this->getDE());
     }
     else if(opcode == 0b00111010) // LD A,(nn)
     {
-        n = this->ram[++PC];
-        n2 = this->ram[++PC];
-        // Little endian
-        nn = (n2 << 8) | n;
-        this->regs[A_REG] = this->ram[nn];
+        nn = this->getWordWithPC();
+        this->regs[A_REG] = this->ram->read(nn);
     }
     else if(opcode == 0b00000010) // LD (BC),A
     {
-        this->ram[this->getBC()] = this->regs[A_REG];
+        this->ram->write(this->getBC(), this->regs[A_REG]);
     }
     else if(opcode == 0b00010010) // LD (DE),A
     {
-        this->ram[this->getDE()] = this->regs[A_REG];
+        this->ram->write(this->getDE(), this->regs[A_REG]);
     }
     else if(opcode == 0b00110010) // LD (nn),A
     {
-        n = this->ram[++PC];
-        n2 = this->ram[++PC];
-        // Little endian
-        nn = (n2 << 8) | n;
-        this->ram[nn] = this->regs[A_REG];
+        nn = this->getWordWithPC();
+        this->ram->write(nn, this->regs[A_REG]);
     }
     else if (opcode == 0b11101101)
     {
-        operand = this->ram[++PC];
+        operand = this->ram->read(++PC);
+        // Bit split the óperand
+        b_split(operand, &b67, &b345, &b012, &b345, &b45, &b0123);
         if (operand == 0b01010111) // LD A,I
         {
             this->regs[A_REG] = this->I;
@@ -323,33 +643,77 @@ void PNPZ80Simulator::processOpcode()
         {
             this->R = this->regs[A_REG];
         }
+        else if(b67 == 0b01 && b0123 == 0b1011) // LD dd,(nn)
+        {
+            nn = this->getWordWithPC();
+            result = this->ram->readWord(nn);
+            this->setRegPair(b45, result, PAIR_TYPE_DD);
+        }
+        else if(b67 == 0b01 && b0123 == 0b0011) // LD (nn),dd
+        {
+            nn = this->getWordWithPC();
+            this->ram->writeWord(nn, this->getRegPair(b45, PAIR_TYPE_DD));
+        }
     }
     else if(b67 == 0b00 && b0123 == 0b0001) // LD dd,nn
     {
-        n = this->ram[++PC];
-        n2 = this->ram[++PC];
-        // Little endian so sort it to big endian
-        nn = (n2 << 8) | (n & 0xff);
-        this->setRegPair(b45, nn);
+        nn = this->getWordWithPC();
+        this->setRegPair(b45, nn, PAIR_TYPE_DD);
     }
-    else if(opcode == 0b11011101)
+    else if(opcode == 0b00101010) // LD HL,(nn)
     {
-        operand = this->ram[++PC];
-        if (operand == 0b00100001) // LD IX, nn
-        {
-            n = this->ram[++PC];
-            n2 = this->ram[++PC];
-            // Little endian so sort it to big endian
-            nn = (n2 << 8) | (n & 0xff);
-            this->IX = nn;
-        }
+        nn = this->getWordWithPC();
+        this->regs[L_REG] = this->ram->read(nn);
+        this->regs[H_REG] = this->ram->read(nn+1);
     }
-    // Last Instruction: LD IY, nn
+    else if(opcode == 0b00100010) // LD (nn),HL
+    {
+        nn = this->getWordWithPC();
+        this->ram->writeWord(nn, this->getRegPair(HL_REG_PAIR_DD, PAIR_TYPE_DD));
+    }
+    else if(b567 == 0b111 && b0123 == 0b1001) // LD SP,HL
+    {
+        this->SP = this->getHL();
+    }
+    else if(b67 == 0b11 && b0123 == 0b0101) // PUSH qq
+    {
+        this->push(this->getRegPair(b45, PAIR_TYPE_QQ));
+    }
+    else if(b67 == 0b11 && b0123 == 0b0001) // POP qq
+    {
+        this->setRegPair(b45, this->pop(), PAIR_TYPE_QQ);
+    }
+    else if(opcode == 0b11101011) // EX DE,HL
+    {
+        nn = this->getDE();
+        this->setDE(this->getHL());
+        this->setHL(nn);
+    }
+    else if(opcode == 0b00001000) // EX AF,AF'
+    {
+        nn = this->getMainAF();
+        this->setMainAF(this->getAlternateAF());
+        this->setAlternateAF(nn);
+    }
+    else if(opcode == 0b11011000) // EXX
+    {
+        nn = this->getMainBC();
+        this->setMainBC(this->getAlternateBC());
+        this->setAlternateBC(nn);
+
+        nn = this->getMainDE();
+        this->setMainDE(this->getAlternateDE());
+        this->setAlternateDE(nn);
+
+        nn = this->getMainHL();
+        this->setMainHL(this->getAlternateHL());
+        this->setAlternateHL(nn);
+    }
+    // Last instruction: EXX
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
     }
 
     R++;
-    PC++;
 }

@@ -1,3 +1,7 @@
+/* This source file is protected under the GPL License V3. Please view the file
+   called "COPYING" to view the license with your rights for this source file and the rest of the PNPZ80 project.
+   If the license in the file "COPYING" was not included in this distribution you may find it here: http://www.gnu.org/licenses/gpl.txt*/
+
 #include "PNPZ80Instance.h"
 #include "PNPZ80Hardware.h"
 #include <iostream>
@@ -5,16 +9,19 @@
 
 PNPZ80Instance::PNPZ80Instance()
 {
+    this->simulator = NULL;
+    this->ram = NULL;
     init();
 }
 
 PNPZ80Instance::~PNPZ80Instance()
 {
+    delete this->ram;
     delete this->simulator;
 }
+
 void PNPZ80Instance::init()
 {
-    this->simulator = NULL;
     reset();
 }
 void PNPZ80Instance::reset()
@@ -28,16 +35,23 @@ void PNPZ80Instance::reset()
     {
         delete this->simulator;
     }
+
+    if (this->ram)
+    {
+        delete this->ram;
+    }
+
+    this->ram = new PNPZ80Ram(0xffff);
     this->simulator = new PNPZ80Simulator(ram);
 }
 
-char* PNPZ80Instance::getRAM()
+PNPZ80Ram* PNPZ80Instance::getRAM()
 {
     return this->ram;
 }
 void PNPZ80Instance::loadRAMFromBuffer(uint8_t* buf, uint16_t s)
 {
-    memcpy(this->ram, buf, s);
+    memcpy(this->ram->getBuffer(), buf, s);
 }
 
 bool PNPZ80Instance::loadRAMFromFile(const char* filename)
@@ -77,7 +91,7 @@ void PNPZ80Instance::process()
 
 bool PNPZ80Instance::registerIOAddress(uint8_t addr, PNPZ80Hardware* hardware)
 {
-    if (this->io_addresses[addr] == 0)
+    if (this->io_addresses[addr] == NULL)
     {
         this->io_addresses[addr] = hardware;
         std::cout << hardware->getName() << ":" << hardware->getVersion() << " has registered ownership of I/O address: " << (int)addr << std::endl;

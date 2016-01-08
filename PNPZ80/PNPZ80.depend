@@ -1,36 +1,46 @@
 # depslib dependency file v1.0
-1450378145 source:h:\c++\pnpz80\pnpz80\main.cpp
+1452045872 source:h:\c++\pnpz80\pnpz80\main.cpp
 	"PNPZ80.h"
 
-1450666964 h:\c++\pnpz80\pnpz80\pnpz80.h
+1452128341 h:\c++\pnpz80\pnpz80\pnpz80.h
 	<windows.h>
 	<stdint.h>
 
-1450379896 source:h:\c++\pnpz80\pnpz80\src\pnpz80hardware.cpp
+1452045899 source:h:\c++\pnpz80\pnpz80\src\pnpz80hardware.cpp
 	"PNPZ80Hardware.h"
 
-1450379863 h:\c++\pnpz80\pnpz80\include\pnpz80hardware.h
+1452045866 h:\c++\pnpz80\pnpz80\include\pnpz80hardware.h
 	"PNPZ80.h"
 	"PNPZ80Instance.h"
 	<string>
 
-1450668251 h:\c++\pnpz80\pnpz80\include\pnpz80instance.h
+1452045862 h:\c++\pnpz80\pnpz80\include\pnpz80instance.h
 	<stdint.h>
 	<vector>
 	"PNPZ80.h"
 	"PNPZ80Simulator.h"
 
-1450667582 h:\c++\pnpz80\pnpz80\include\pnpz80simulator.h
+1452134856 h:\c++\pnpz80\pnpz80\include\pnpz80simulator.h
 	"PNPZ80.h"
-	<stdint.h>
+	"PNPZ80Ram.h"
 
-1450668265 source:h:\c++\pnpz80\pnpz80\src\pnpz80instance.cpp
+1452045894 source:h:\c++\pnpz80\pnpz80\src\pnpz80instance.cpp
 	"PNPZ80Instance.h"
 	"PNPZ80Hardware.h"
 	<iostream>
 	<stdio.h>
 
-1450668046 source:h:\c++\pnpz80\pnpz80\src\pnpz80simulator.cpp
+1452135483 source:h:\c++\pnpz80\pnpz80\src\pnpz80simulator.cpp
 	"PNPZ80Simulator.h"
 	<iostream>
+
+1452105638 source:h:\c++\pnpz80\pnpz80\src\pnpz80ram.cpp
+	"PNPZ80Ram.h"
+
+1452045856 h:\c++\pnpz80\pnpz80\include\pnpz80ram.h
+	"PNPZ80.h"
+
+1452181365 h:\c++\pnpz80\pnpz80\include\pnpz80.h
+	<windows.h>
+	<stdint.h>
 

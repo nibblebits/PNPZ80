@@ -1,3 +1,6 @@
+/* This source file is protected under the GPL License V3. Please view the file
+   called "COPYING" to view the license with your rights for this source file and the rest of the PNPZ80 project.
+   If the license in the file "COPYING" was not included in this distribution you may find it here: http://www.gnu.org/licenses/gpl.txt*/
 #ifndef PNPZ80INSTANCE_H
 #define PNPZ80INSTANCE_H
 
@@ -19,11 +22,11 @@ class DLL_EXPORT PNPZ80Instance
         void loadRAMFromBuffer(uint8_t* buf, uint16_t s);
         bool loadRAMFromFile(const char* filename);
         PNPZ80Simulator* getSimulator();
-        char* getRAM();
+        PNPZ80Ram* getRAM();
 
     protected:
     private:
-        char ram[0xffff];
+        PNPZ80Ram* ram;
         // Holds pointers to hardware
         std::vector<PNPZ80Hardware*> hardware;
         // Holds pointers to the IO addresses

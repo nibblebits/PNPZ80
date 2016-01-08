@@ -19,7 +19,7 @@
 					<Add directory="include" />
 				</Compiler>
 				<Linker>
-					<Add library="H:\C++\PNPZ80\examples\PNPZ80 Emulation Basic Example\bin\Debug\libPNPZ80.a" />
+					<Add library="H:\C++\PNPZ80\PNPZ80\bin\PNPZ80.dll" />
 					<Add directory="H:/C++/PNPZ80" />
 				</Linker>
 			</Target>
