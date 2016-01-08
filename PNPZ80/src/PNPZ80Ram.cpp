@@ -3,6 +3,8 @@
    If the license in the file "COPYING" was not included in this distribution you may find it here: http://www.gnu.org/licenses/gpl.txt*/
 
 #include "PNPZ80Ram.h"
+#include <stdio.h>
+#include <string.h>
 
 PNPZ80Ram::PNPZ80Ram(uint16_t _size)
 {

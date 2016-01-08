@@ -6,6 +6,7 @@
 #include "PNPZ80Hardware.h"
 #include <iostream>
 #include <stdio.h>
+#include <string.h>
 
 PNPZ80Instance::PNPZ80Instance()
 {

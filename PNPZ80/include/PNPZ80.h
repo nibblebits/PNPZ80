@@ -5,9 +5,11 @@
 #ifndef __PNPZ80_H__
 #define __PNPZ80_H__
 
+#ifdef _WIN32
 #include <windows.h>
-#include <stdint.h>
+#endif
 
+#include <stdint.h>
 
 // Main register ids
 enum
@@ -56,8 +58,11 @@ enum
     S_FLAG = 0b10000000
 };
 
+#ifdef _WIN32
 #define DLL_EXPORT __declspec(dllexport)
-
+#else
+#define DLL_EXPORT __attribute__((visibility("default")))
+#endif
 #ifdef __cplusplus
 extern "C"
 {
