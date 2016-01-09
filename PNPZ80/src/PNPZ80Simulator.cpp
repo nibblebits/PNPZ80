@@ -668,8 +668,8 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(operand == 0b10100000) // LDI
         {
-            nn = this->ram->readWord(this->getHL());
-            this->ram->writeWord(this->getDE(), nn);
+            n = this->ram->read(this->getHL());
+            this->ram->write(this->getDE(), n);
             this->setDE(this->getDE()+1);
             this->setHL(this->getHL()+1);
             this->setBC(this->getBC()-1);
@@ -686,8 +686,8 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(operand == 0b10110000) // LDIR
         {
-            nn = this->ram->readWord(this->getHL());
-            this->ram->writeWord(this->getDE(), nn);
+            n = this->ram->read(this->getHL());
+            this->ram->write(this->getDE(), n);
             this->setDE(this->getDE()+1);
             this->setHL(this->getHL()+1);
             this->setBC(this->getBC()-1);
@@ -703,8 +703,8 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(operand == 0b10101000) // LDD
         {
-            nn = this->ram->readWord(this->getHL());
-            this->ram->writeWord(this->getDE(), nn);
+            n = this->ram->read(this->getHL());
+            this->ram->write(this->getDE(), n);
             this->setDE(this->getDE()-1);
             this->setHL(this->getHL()-1);
             this->setBC(this->getBC()-1);
@@ -721,8 +721,8 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(operand == 0b10111000) // LDDR
         {
-            nn = this->ram->readWord(this->getHL());
-            this->ram->writeWord(this->getDE(), nn);
+            n = this->ram->read(this->getHL());
+            this->ram->write(this->getDE(), n);
             this->setHL(this->getHL()-1);
             this->setDE(this->getDE()-1);
             this->setBC(this->getBC()-1);
