@@ -7,7 +7,7 @@ The best way to describe PNPZ80 is that its like someone giving you a Z80 Proces
 Feel free to contribute to the project, at the moment the important part is finishing the Z80 simulator.
 
 #Compiling notes:
-To compile on windows use "make windows" to compile on linux use "make linux". Be sure to firstly clean the project by using "make cleanWindows" or "make cleanLinux" depending on your operating system.
+To compile on windows use "mingw32-make windows" to compile on linux use "make linux". Be sure to firstly clean the project by using "mingw32-make cleanWindows" or "make cleanLinux" depending on your operating system.
 
 If your compiling on linux make sure g++ is installed before compiling
 sudo apt-get update
