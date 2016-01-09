@@ -711,9 +711,11 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     }
     else if(opcode == 0b11100011) // EX (SP),HL
     {
-
+        nn = this->ram->readWord(this->getSP());
+        this->ram->writeWord(this->getSP(), this->getHL());
+        this->setHL(nn);
     }
-    // Last instruction: EXX
+    // Last instruction: EX (SP),HL
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
