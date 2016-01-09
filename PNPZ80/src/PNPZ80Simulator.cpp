@@ -743,6 +743,10 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             {
                 this->regs[F_REG] |= S_FLAG;
             }
+            else
+            {
+                this->regs[F_REG] &= ~(S_FLAG);
+            }
             // IF sb == 0 then the A register and the byte of memory addressed by the HL register are equal
             if (sb == 0)
             {
