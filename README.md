@@ -16,3 +16,6 @@ sudo apt-get update
 sudo apt-get install g++
 
 If your on Windows you should download Mingw and set your "PATH" variable in your environment variables to include the folder of the mingw "bin" directory.
+
+
+At the moment any changes made by the code holder will not be recognised when building the project. You will first have to clean the project as described above. This shouldn't be an issue and hopefully the "Makefile" issues will be solved soon.
