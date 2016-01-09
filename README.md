@@ -8,3 +8,9 @@ Feel free to contribute to the project, at the moment the important part is fini
 
 #Compiling notes:
 To compile on windows use "make windows" to compile on linux use "make linux". Be sure to firstly clean the project by using "make cleanWindows" or "make cleanLinux" depending on your operating system.
+
+If your compiling on linux make sure g++ is installed before compiling
+sudo apt-get update
+sudo apt-get install g++
+
+If your on Windows you should download Mingw and set your "PATH" variable in your environment variables to include the folder of the mingw "bin" directory.
