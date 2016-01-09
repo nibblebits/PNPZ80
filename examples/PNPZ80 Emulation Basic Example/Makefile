@@ -12,3 +12,15 @@ windows: ./bin/PNPZ80EmuExample.exe
 cleanWindows:
 	del ".\obj\main.o"
 	del ".\obj\PNPZ80Audio.o"
+
+linux: ./bin/PNPZ80EmuExample
+
+./bin/PNPZ80EmuExample: ./obj/main.o ./obj/PNPZ80Audio.o
+	cp "../../PNPZ80/bin/PNPZ80.so" "./PNPZ80.so"
+	g++ ./obj/main.o ./obj/PNPZ80Audio.o ./PNPZ80.so -o ./bin/PNPZ80EmuExample
+	mv "./PNPZ80.so" "./bin/PNPZ80.so"
+
+cleanLinux:
+	rm "./obj/main.o"
+	rm "./obj/PNPZ80Audio.o"
+
