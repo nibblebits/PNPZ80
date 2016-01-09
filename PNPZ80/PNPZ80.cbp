@@ -25,6 +25,14 @@
 				<Linker>
 					<Add library="user32" />
 				</Linker>
+				<MakeCommands>
+					<Build command="$make -f $makefile windows" />
+					<CompileFile command="$make -f $makefile windows" />
+					<Clean command="$make -f $makefile cleanWindows" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile windows" />
+					<SilentBuild command="$make -f $makefile windows &gt; $(CMD_NULL)" />
+				</MakeCommands>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/PNPZ80" prefix_auto="1" extension_auto="1" />
@@ -50,11 +58,11 @@
 		<Unit filename="include/PNPZ80Instance.h" />
 		<Unit filename="include/PNPZ80Ram.h" />
 		<Unit filename="include/PNPZ80Simulator.h" />
+		<Unit filename="src/PNPZ80.cpp" />
 		<Unit filename="src/PNPZ80Hardware.cpp" />
 		<Unit filename="src/PNPZ80Instance.cpp" />
 		<Unit filename="src/PNPZ80Ram.cpp" />
 		<Unit filename="src/PNPZ80Simulator.cpp" />
-		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -709,6 +709,10 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         this->setMainHL(this->getAlternateHL());
         this->setAlternateHL(nn);
     }
+    else if(opcode == 0b11100011) // EX (SP),HL
+    {
+
+    }
     // Last instruction: EXX
     else
     {
