@@ -735,7 +735,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             this->regs[F_REG] &= ~(PV_FLAG);
             this->regs[F_REG] &= ~(N_FLAG);
         }
-        else if(operand == 0b10100000) // CPI
+        else if(operand == 0b10100001) // CPI
         {
             sb = this->regs[A_REG] - this->ram->read(this->getHL());
 
