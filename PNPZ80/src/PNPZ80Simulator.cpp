@@ -401,6 +401,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     uint8_t b345;
     uint8_t d;
     uint8_t n;
+    int8_t sb;
     uint8_t reg;
     uint8_t operand;
     uint16_t nn;
@@ -734,6 +735,46 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             this->regs[F_REG] &= ~(PV_FLAG);
             this->regs[F_REG] &= ~(N_FLAG);
         }
+        else if(operand == 0b10100000) // CPI
+        {
+            sb = this->regs[A_REG] - this->ram->read(this->getHL());
+
+            if (sb < 0)
+            {
+                this->regs[F_REG] |= S_FLAG;
+            }
+            // IF sb == 0 then the A register and the byte of memory addressed by the HL register are equal
+            if (sb == 0)
+            {
+                this->regs[F_REG] |= Z_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(Z_FLAG);
+            }
+
+            // This is a guess not even sure if its right, someone please check this
+            if (sb & 0b00010000)
+            {
+                this->regs[F_REG] |= H_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(H_FLAG);
+            }
+
+            this->setHL(this->getHL()+1);
+            this->setBC(this->getBC()-1);
+            if (this->getBC() != 0)
+            {
+                this->regs[F_REG] |= PV_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(PV_FLAG);
+            }
+
+        }
     }
     else if(b67 == 0b00 && b0123 == 0b0001) // LD dd,nn
     {
@@ -795,7 +836,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         this->ram->writeWord(this->getSP(), this->getHL());
         this->setHL(nn);
     }
-    // Last instruction: LDDR
+    // Last instruction: CPI
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
