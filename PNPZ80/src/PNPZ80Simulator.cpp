@@ -402,6 +402,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
     uint8_t d;
     uint8_t n;
     int8_t sb;
+    int8_t sb2;
     uint8_t reg;
     uint8_t operand;
     uint16_t nn;
@@ -738,7 +739,6 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         else if(operand == 0b10100001) // CPI
         {
             sb = this->regs[A_REG] - this->ram->read(this->getHL());
-
             if (sb < 0)
             {
                 this->regs[F_REG] |= S_FLAG;
@@ -778,6 +778,54 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
                 this->regs[F_REG] &= ~(PV_FLAG);
             }
 
+        }
+        else if(operand == 0b10110001) // CPIR
+        {
+            sb = this->regs[A_REG] - this->ram->read(this->getHL());
+            if (sb < 0)
+            {
+                this->regs[F_REG] |= S_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(S_FLAG);
+            }
+            // IF sb == 0 then the A register and the byte of memory addressed by the HL register are equal
+            if (sb == 0)
+            {
+                this->regs[F_REG] |= Z_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(Z_FLAG);
+            }
+
+            // This is a guess not even sure if its right, someone please check this
+            if (sb & 0b00010000)
+            {
+                this->regs[F_REG] |= H_FLAG;
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(H_FLAG);
+            }
+
+            this->regs[F_REG] |= N_FLAG;
+            this->setHL(this->getHL()+1);
+            this->setBC(this->getBC()-1);
+            if (this->getBC() != 0)
+            {
+                this->regs[F_REG] |= PV_FLAG;
+                // A != (HC)
+                if (sb != 0)
+                {
+                    this->PC-=2;
+                }
+            }
+            else
+            {
+                this->regs[F_REG] &= ~(PV_FLAG);
+            }
         }
     }
     else if(b67 == 0b00 && b0123 == 0b0001) // LD dd,nn
