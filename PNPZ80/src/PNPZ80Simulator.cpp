@@ -778,6 +778,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
                 this->regs[F_REG] &= ~(PV_FLAG);
             }
 
+            this->regs[F_REG] |= N_FLAG;
         }
         else if(operand == 0b10110001) // CPIR
         {
@@ -826,6 +827,8 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             {
                 this->regs[F_REG] &= ~(PV_FLAG);
             }
+
+            this->regs[F_REG] |= N_FLAG;
         }
     }
     else if(b67 == 0b00 && b0123 == 0b0001) // LD dd,nn
