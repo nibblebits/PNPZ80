@@ -9,13 +9,13 @@ using namespace std;
 int main()
 {
     // Machine instructions for the Z80 assemblers
-    uint8_t buf[100] = {0x31, 0x07, 0x10, 0x11, 0x33, 0x22, 0xd5, 0x11, 0x00, 0x00, 0xd1};
+    uint8_t buf[100] = {0x3e, 0x08, 0x32, 0xf3, 0xff, 0xed, 0xa1};
     PNPZ80Instance z80_system;
 
     // Attach the audio hardware
     z80_system.attachHardware(new PNPZ80Audio());
     z80_system.loadRAMFromBuffer(buf, 100);
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 3; i++)
         z80_system.process();
     std::cout << "A reg: " << (int)z80_system.getSimulator()->getMainRegister(A_REG) << std::endl;
     std::cout << "B reg:" << (int)z80_system.getSimulator()->getMainRegister(B_REG) << std::endl;
@@ -27,7 +27,6 @@ int main()
     std::cout << "DE regs: " << (int)z80_system.getSimulator()->getRegPair(DE_REG_PAIR_DD, PAIR_TYPE_DD) << std::endl;
     std::cout << "BC regs: " << (int)z80_system.getSimulator()->getRegPair(BC_REG_PAIR_DD, PAIR_TYPE_DD) << std::endl;
     std::cout << "SP regs: " << (int)z80_system.getSimulator()->getRegPair(SP_REG_PAIR_DD, PAIR_TYPE_DD) << std::endl;
-    std::cout << "memory 4102: " << (int) z80_system.getRAM()->read(4102) << std::endl;
-    std::cout << "memory 4101: " << (int) z80_system.getRAM()->read(4101) << std::endl;
+    std::cout << "memory 0xFFF3: " << (int) z80_system.getRAM()->read(0xFFF3) << std::endl;
     return 0;
 }

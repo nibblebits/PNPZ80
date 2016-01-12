@@ -738,8 +738,9 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(operand == 0b10100001) // CPI
         {
-            sb = this->regs[A_REG] - this->ram->read(this->getHL());
-            if (sb < 0)
+            sb = this->ram->read(this->getHL());
+            sb2 = this->regs[A_REG] - sb;
+            if (sb2 < 0)
             {
                 this->regs[F_REG] |= S_FLAG;
             }
@@ -747,8 +748,8 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             {
                 this->regs[F_REG] &= ~(S_FLAG);
             }
-            // IF sb == 0 then the A register and the byte of memory addressed by the HL register are equal
-            if (sb == 0)
+            // IF sb2 == 0 then the A register and the byte of memory addressed by the HL register are equal
+            if (sb2 == 0)
             {
                 this->regs[F_REG] |= Z_FLAG;
             }
@@ -757,8 +758,8 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
                 this->regs[F_REG] &= ~(Z_FLAG);
             }
 
-            // This is a guess not even sure if its right, someone please check this
-            if (sb & 0b00010000)
+            // If A_LOW_NIBBLE < (HL)_LOW_NIBBLE THEN SET HALF CARRY
+            if ((this->regs[A_REG] & 0x0f) < (sb & 0x0f))
             {
                 this->regs[F_REG] |= H_FLAG;
             }
@@ -782,8 +783,9 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(operand == 0b10110001) // CPIR
         {
-            sb = this->regs[A_REG] - this->ram->read(this->getHL());
-            if (sb < 0)
+            sb = this->ram->read(this->getHL());
+            sb2 = this->regs[A_REG] - sb;
+            if (sb2 < 0)
             {
                 this->regs[F_REG] |= S_FLAG;
             }
@@ -791,8 +793,8 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             {
                 this->regs[F_REG] &= ~(S_FLAG);
             }
-            // IF sb == 0 then the A register and the byte of memory addressed by the HL register are equal
-            if (sb == 0)
+            // IF sb2 == 0 then the A register and the byte of memory addressed by the HL register are equal
+            if (sb2 == 0)
             {
                 this->regs[F_REG] |= Z_FLAG;
             }
@@ -801,8 +803,8 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
                 this->regs[F_REG] &= ~(Z_FLAG);
             }
 
-            // This is a guess not even sure if its right, someone please check this
-            if (sb & 0b00010000)
+            // If A_LOW_NIBBLE < (HL)_LOW_NIBBLE THEN SET HALF CARRY
+            if ((this->regs[A_REG] & 0x0f) < (sb & 0x0f))
             {
                 this->regs[F_REG] |= H_FLAG;
             }
@@ -818,7 +820,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             {
                 this->regs[F_REG] |= PV_FLAG;
                 // A != (HC)
-                if (sb != 0)
+                if (sb2 != 0)
                 {
                     this->PC-=2;
                 }
