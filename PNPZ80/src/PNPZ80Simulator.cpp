@@ -391,6 +391,52 @@ void PNPZ80Simulator::processOpcode()
     PC++;
 }
 
+void PNPZ80Simulator::CPI_CPIR_CPD_CPDR_SetFlags()
+{
+    int32_t sb;
+    int32_t sb2;
+    sb = this->ram->read(this->getHL());
+    sb2 = this->regs[A_REG] - sb;
+    if (sb2 < 0)
+    {
+        this->regs[F_REG] |= S_FLAG;
+    }
+    else
+    {
+        this->regs[F_REG] &= ~(S_FLAG);
+    }
+    // IF sb2 == 0 then the A register and the byte of memory addressed by the HL register are equal
+    if (sb2 == 0)
+    {
+        this->regs[F_REG] |= Z_FLAG;
+    }
+    else
+    {
+        this->regs[F_REG] &= ~(Z_FLAG);
+    }
+
+    // If A_LOW_NIBBLE < (HL)_LOW_NIBBLE THEN SET HALF CARRY
+    if ((this->regs[A_REG] & 0x0f) < (sb & 0x0f))
+    {
+        this->regs[F_REG] |= H_FLAG;
+    }
+    else
+    {
+        this->regs[F_REG] &= ~(H_FLAG);
+    }
+
+    if (this->getBC() -1 != 0)
+    {
+        this->regs[F_REG] |= PV_FLAG;
+    }
+    else
+    {
+        this->regs[F_REG] &= ~(PV_FLAG);
+    }
+
+    this->regs[F_REG] |= N_FLAG;
+}
+
 void PNPZ80Simulator::emulate(uint32_t opcode)
 {
     uint8_t b67;
@@ -738,99 +784,17 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         }
         else if(operand == 0b10100001) // CPI
         {
-            sb = this->ram->read(this->getHL());
-            sb2 = this->regs[A_REG] - sb;
-            if (sb2 < 0)
-            {
-                this->regs[F_REG] |= S_FLAG;
-            }
-            else
-            {
-                this->regs[F_REG] &= ~(S_FLAG);
-            }
-            // IF sb2 == 0 then the A register and the byte of memory addressed by the HL register are equal
-            if (sb2 == 0)
-            {
-                this->regs[F_REG] |= Z_FLAG;
-            }
-            else
-            {
-                this->regs[F_REG] &= ~(Z_FLAG);
-            }
-
-            // If A_LOW_NIBBLE < (HL)_LOW_NIBBLE THEN SET HALF CARRY
-            if ((this->regs[A_REG] & 0x0f) < (sb & 0x0f))
-            {
-                this->regs[F_REG] |= H_FLAG;
-            }
-            else
-            {
-                this->regs[F_REG] &= ~(H_FLAG);
-            }
-
+            this->CPI_CPIR_CPD_CPDR_SetFlags();
             this->setHL(this->getHL()+1);
             this->setBC(this->getBC()-1);
-            if (this->getBC() != 0)
-            {
-                this->regs[F_REG] |= PV_FLAG;
-            }
-            else
-            {
-                this->regs[F_REG] &= ~(PV_FLAG);
-            }
-
-            this->regs[F_REG] |= N_FLAG;
         }
         else if(operand == 0b10110001) // CPIR
         {
-            sb = this->ram->read(this->getHL());
-            sb2 = this->regs[A_REG] - sb;
-            if (sb2 < 0)
+            this->CPI_CPIR_CPD_CPDR_SetFlags();
+            if (this->regs[A_REG] != this->ram->read(this->getHL()))
             {
-                this->regs[F_REG] |= S_FLAG;
+                this->PC-=2;
             }
-            else
-            {
-                this->regs[F_REG] &= ~(S_FLAG);
-            }
-            // IF sb2 == 0 then the A register and the byte of memory addressed by the HL register are equal
-            if (sb2 == 0)
-            {
-                this->regs[F_REG] |= Z_FLAG;
-            }
-            else
-            {
-                this->regs[F_REG] &= ~(Z_FLAG);
-            }
-
-            // If A_LOW_NIBBLE < (HL)_LOW_NIBBLE THEN SET HALF CARRY
-            if ((this->regs[A_REG] & 0x0f) < (sb & 0x0f))
-            {
-                this->regs[F_REG] |= H_FLAG;
-            }
-            else
-            {
-                this->regs[F_REG] &= ~(H_FLAG);
-            }
-
-            this->regs[F_REG] |= N_FLAG;
-            this->setHL(this->getHL()+1);
-            this->setBC(this->getBC()-1);
-            if (this->getBC() != 0)
-            {
-                this->regs[F_REG] |= PV_FLAG;
-                // A != (HC)
-                if (sb2 != 0)
-                {
-                    this->PC-=2;
-                }
-            }
-            else
-            {
-                this->regs[F_REG] &= ~(PV_FLAG);
-            }
-
-            this->regs[F_REG] |= N_FLAG;
         }
     }
     else if(b67 == 0b00 && b0123 == 0b0001) // LD dd,nn

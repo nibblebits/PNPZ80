@@ -63,6 +63,9 @@ class DLL_EXPORT PNPZ80Simulator
         void push(uint16_t value);
         uint16_t pop();
 
+        //. The logic in this method happens a lot, which is why a method was made for it
+        void CPI_CPIR_CPD_CPDR_SetFlags();
+
         PNPZ80Ram* ram;
 
         // The regs pointer will point to either the main registers or the alternative registers
