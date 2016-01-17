@@ -802,6 +802,17 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
             this->setHL(this->getHL()-1);
             this->setBC(this->getBC()-1);
         }
+        else if(operand == 0b10111001) // CPDR
+        {
+            this->CPI_CPIR_CPD_CPDR_SetFlags();
+            this->setHL(this->getHL()-1);
+            this->setBC(this->getBC()-1);
+            if (this->getBC() == 0 && this->regs[A_REG] == this->getHL())
+            {
+                this->PC-=2;
+            }
+
+        }
     }
     else if(b67 == 0b00 && b0123 == 0b0001) // LD dd,nn
     {
@@ -863,7 +874,7 @@ void PNPZ80Simulator::emulate(uint32_t opcode)
         this->ram->writeWord(this->getSP(), this->getHL());
         this->setHL(nn);
     }
-    // Last instruction: CPD
+    // Last instruction: CPDR
     else
     {
         std::cout << "Bad Opcode: "  << (int) opcode << std::endl;
